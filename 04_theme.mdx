@@ -1,0 +1,170 @@
+import { Meta } from "@storybook/blocks";
+import EventsIcon from "./../../assets/events-icon.svg";
+
+<Meta title="@UFE-Base/Events/Theme" />
+
+<div>
+    <div className="sb-icon">
+        <img
+            src={EventsIcon}
+            alt="Events icon"/>
+    </div>
+
+    # Theme Events
+
+    The **theme events** are responsible for managing the theme direction (left to right or right to left) within the application.<br/>
+    This document presents information for the event offered by **``@ufe/base``** module, as well as examples of how it can be used.
+
+    The events described in this document are: 
+
+    - [Changing the Theme Direction](#changing-the-theme-direction)
+    - [Changing the Theme Palette](#changing-the-theme-palette)
+
+    <br/>
+    <br/>
+
+    ## Changing the Theme Direction
+
+    The **changeThemeDirection** function in ``@ufe/base`` module is responsible for dispatching the event ``ufe-change-theme-direction``.<br/> 
+    This event is used for changing the theme direction from left to right (LTR) or right to left (RTL).
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Default</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**direction***</td>
+                <td> The theme direction. </td>
+                <td> ```'ltr' | 'rtl'``` </td>
+                <td> - </td>
+            </tr>
+            <tr>
+                <td>**dontSetUserPrefs**</td>
+                <td> Boolean to control whether to set or not user preferences. </td>
+                <td> ```boolean``` </td>
+                <td> false </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br />
+
+    ### Code Example
+
+    Below is an example of how to change the theme direction.
+
+    ```js
+    import { changeThemeDirection } from '@ufe/base';
+
+    // To change the theme direction to RTL
+    changeThemeDirection('rtl');
+
+    // To change the theme direction to LTR without setting user preferences
+    changeThemeDirection('ltr', true);
+    ```
+
+    ## Changing the Theme Palette
+
+    The **changeThemeType** function in ``@ufe/base`` module is responsible for dispatching the event ``ufe-change-theme-type``.<br/> 
+    This event is used for changing the theme palette from light to dark or dark to light.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Default</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**type***</td>
+                <td> The palette type. </td>
+                <td> ```'light' | 'dark'``` </td>
+                <td> - </td>
+            </tr>
+            <tr>
+                <td>**dontSetUserPrefs**</td>
+                <td> Boolean to control whether to set or not user preferences. </td>
+                <td> ```boolean``` </td>
+                <td> false </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br />
+
+    ### Code Example
+
+    Below is an example of how to change the theme palette.
+
+    ```js
+    import { changeThemeType } from '@ufe/base';
+
+    // To change the theme type to light
+    changeThemeType('light');
+
+    // To change the theme type to light without setting user preferences
+    changeThemeType('light', true);
+    ```
+
+
+</div>
+
+<style>
+  {`
+    li::marker{
+        color: #BE63FF;
+    }
+    a{
+        color: #BE63FF !important;
+        font-weight: bold;
+    }
+    a:hover{
+        color: #7F42AB !important;
+    }
+    table{
+        width: 100%;
+    }
+    thead tr{
+        border: none !important;
+        background: #fff;
+    }
+    thead th{
+        border: none !important;
+        color: #6c6c6c !important;
+    }
+    tbody{
+        box-shadow: 1px 1px 6px 1px #dedede;
+    }
+    tbody td{
+        text-align: center;
+        border: none !important;
+        background: #fff;
+        height: 30px;
+        color: #333;
+    }
+    .sb-icon {
+        background: #FBF6FF;
+        height: 60px;
+        width: 60px;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .sb-icon img {
+        width: 32px;
+    }
+ `}
+</style>

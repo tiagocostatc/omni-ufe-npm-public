@@ -1,0 +1,293 @@
+import { Meta } from "@storybook/blocks";
+import EventsIcon from "./../../assets/events-icon.svg";
+
+<Meta title="@UFE-Base/Events/Menu" />
+
+<div>
+
+    <div className="sb-icon">
+        <img
+            src={EventsIcon}
+            alt="Events icon"/>
+    </div>
+
+    # Menu Events
+
+    The **menu events** are responsible for opening/closing the menu, collapsing/expanding menu categories and changing the menu view mode.<br/> 
+    This document presents information for each of the events offered by **``@ufe/base``** module, as well as examples of how they can be used.
+
+    The events described in this document are: 
+
+    - [Opening/Closing the Menu](#openingclosing-the-menu)
+    - [Collapsing a Category](#collapsing-a-category)
+    - [Expanding a Category](#expanding-a-category)
+    - [Collapsing All Categories](#collapsing-all-categories)
+    - [Expanding All Categories](#expanding-all-categories)
+    - [Changing Menu View Mode](#changing-menu-view-mode)
+
+    <br/>
+    <br/>
+
+    ## Opening/Closing the Menu
+
+    The **openMenu** function in ``@ufe/base`` module is responsible for dispatching the event ``ufe-open-menu``.<br/> 
+    This event is used for opening or closing the application's menu.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Default</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**open***</td>
+                <td> Indicates whether to open (`true`) or close (`false`) the menu. </td>
+                <td> ```boolean``` </td>
+                <td> - </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br />
+
+    ### Code Example
+
+    In the example below we show how to open and close the menu.
+
+    ```js
+    import { openMenu } from '@ufe/base';
+
+    // To open the menu
+    openMenu(true);
+
+    // To close the menu
+    openMenu(false);
+    ```
+
+    <br />
+    <br />
+
+    ## Collapsing a Category
+
+    The **collapseCategory** function in ``@ufe/base`` module is responsible for dispatching the event ``ufe-collapse-category``.<br/> 
+    This event is used for collapsing a specific category in the menu.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Default</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**category***</td>
+                <td> Category to collapse. </td>
+                <td> ```string``` </td>
+                <td> - </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br />
+
+    ### Code Example
+
+    In the example below we show how to collapse the "Business" category.
+
+    ```js
+    import { collapseCategory } from '@ufe/base';
+
+    // To collapse the "Business" category
+    collapseCategory('Business');
+    ```
+
+    <br />
+    <br />
+
+    ## Expanding a Category
+
+    The **expandCategory** function in ``@ufe/base`` module is responsible for dispatching the event ``ufe-expand-category``.<br/> 
+    This event is used for expanding a specific category in the menu.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Default</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**category***</td>
+                <td> Category to expand. </td>
+                <td> ```string``` </td>
+                <td> - </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br />
+
+    ### Code Example
+
+    In the example below we show how to expand the "Business" category.
+
+    ```js
+    import { expandCategory } from '@ufe/base';
+
+    // To expand the "Business" category
+    expandCategory('Business');
+    ```
+
+    <br />
+    <br />
+
+    ## Collapsing All Categories
+
+    The **collapseAll** function in ``@ufe/base`` module is responsible for dispatching the event ``ufe-collapse-all-category``.<br/> 
+    This event is used for collapsing all categories in the menu.
+
+    <br />
+
+    ### Code Example
+
+    In the example below we show how to collapse all categories.
+
+    ```js
+    import { collapseAll } from '@ufe/base';
+
+    // To collapse all categories
+    collapseAll();
+    ```
+
+    <br />
+    <br />
+
+    ## Expanding All Categories
+
+    The **expandAll** function in ``@ufe/base`` module is responsible for dispatching the event ``ufe-expand-all-category``.<br/> 
+    This event is used for expanding all categories in the menu.
+
+    <br />
+
+    ### Code Example
+
+    In the example below we show how to expand all categories.
+
+    ```js
+    import { expandAll } from '@ufe/base';
+
+    // To expand all categories
+    expandAll();
+    ```
+
+    <br />
+    <br />
+
+    ## Changing Menu View Mode
+
+    The **changeMenuView** function in ``@ufe/base`` module is responsible for dispatching the event ``ufe-change-menu-view-mode``.<br/> 
+    This event is used for changing the menu view mode to either a grid or list display.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Default</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**mode***</td>
+                <td> Menu view mode. </td>
+                <td> ```MENU_LAYOUT_GRID'` or `'MENU_LAYOUT_LIST``` </td>
+                <td> - </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br />
+
+    ### Code Example
+
+    In the example below we show how to change the menu view mode to grid and list.
+
+    ```js
+    import { changeMenuView } from '@ufe/base';
+
+    // To change the menu view to grid mode
+    changeMenuView('MENU_LAYOUT_GRID');
+
+    // To change the menu view to list mode
+    changeMenuView('MENU_LAYOUT_LIST');
+    ```
+
+    <br />
+    <br />
+
+
+</div>
+
+<style>
+  {`
+    li::marker{
+        color: #BE63FF;
+    }
+    a{
+        color: #BE63FF !important;
+        font-weight: bold;
+    }
+    a:hover{
+        color: #7F42AB !important;
+    }
+    table{
+        width: 100%;
+    }
+    thead tr{
+        border: none !important;
+        background: #fff;
+    }
+    thead th{
+        border: none !important;
+        color: #6c6c6c !important;
+    }
+    tbody{
+        box-shadow: 1px 1px 6px 1px #dedede;
+    }
+    tbody td{
+        text-align: center;
+        border: none !important;
+        background: #fff;
+        height: 30px;
+        color: #333;
+    }
+    .sb-icon {
+        background: #FBF6FF;
+        height: 60px;
+        width: 60px;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .sb-icon img {
+        width: 32px;
+    }
+ `}
+</style>

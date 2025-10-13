@@ -1,0 +1,159 @@
+import { Meta } from "@storybook/blocks";
+import EventsIcon from "./../../assets/events-icon.svg";
+
+<Meta title="@UFE-Base/Events/Generic" />
+
+<div>
+    <div className="sb-icon">
+        <img
+            src={EventsIcon}
+            alt="Events icon"/>
+    </div>
+
+    # Generic Events
+    
+    **Generic events** are responsible for executing generic UFE events like language change.
+    This document presents information for each of the events offered by ```@ufe/base``` module, as well as examples of how they can be used.
+
+    The events described in this document are:
+
+    - [Change Language](#change-language)
+
+    - [Set Loading State](#set-loading-state)
+
+    <br/>
+    <br/>
+
+    ## Change Language
+
+    The **changeLanguage** function in ```@ufe/base``` module is responsible for dispatching the event **```ufe-change-language```**.
+    This event is responsible for changing the current language being used in the Unified Frontend.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**language***</td>
+                <td>The target language (should exist in the languages manifest, by default ```pt-PT``` and ```en-US```)</td>
+                <td> ```string``` </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br/>
+
+    ### Code example
+
+    In the example below we show how to change UFE current language.
+
+    ```javascript
+    import { changeLanguage } from '@ufe/base';
+
+    export default function myFunction(){
+        changeLanguage('pt-PT');
+    }
+    ```
+
+    ## Set Loading State
+
+    The **setLoadingState** function in ```@ufe/base``` module is responsible for dispatching the event **```ufe-set-loading-state```**.
+    This event is responsible for setting and stopping the loaders in Unified Frontend.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**value***</td>
+                <td> The value that controls if the loading should be enabled or stopped. </td>
+                <td> ```boolean``` </td>
+            </tr>
+            <tr>
+                <td>**target***</td>
+                <td> The target of the loading animation, either the application or ufe itself. </td>
+                <td> ```application | ufe``` </td>
+            </tr>
+            <tr>
+                <td>**message***</td>
+                <td> A message to be displayed below the loading animation. </td>
+                <td> ```string``` </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br/>
+
+    ### Code example
+
+    In the example below we show how to use the UFE set loading state.
+
+    ```javascript
+    import { setLoadingState } from '@ufe/base';
+
+    export default function myFunction(){
+        setLoadingState(true,'application', 'Test');
+    }
+    ```
+
+</div>
+<style>
+{`
+    a{
+        color: #BE63FF !important;
+        font-weight: bold;
+    }
+    a:hover{
+        color: #7F42AB !important;
+    }
+    li::marker{
+        color: #BE63FF;
+    }
+    table{
+        width: 100%;
+    }
+    thead tr{
+        border: none !important;
+        background: #fff;
+    }
+    thead th{
+        border: none !important;
+        color: #6c6c6c !important;
+    }
+    tbody{
+        box-shadow: 1px 1px 6px 1px #dedede;
+    }
+    tbody td{
+        text-align: center;
+        border: none !important;
+        background: #fff;
+        height: 30px;
+        color: #333;
+    }
+    .sb-icon {
+        background: #FBF6FF;
+        height: 60px;
+        width: 60px;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .sb-icon img {
+        width: 32px;
+    }
+ `}
+</style>

@@ -1,0 +1,120 @@
+import { Meta } from "@storybook/blocks";
+import ComponentsIcon from "./../../assets/components-icon.svg";
+
+<Meta title="@UFE-Base/Components/Entitlements Verifier" />
+
+<div>
+
+    <div className="sb-icon">
+        <img
+            src={ComponentsIcon}
+            alt="Components icon"/>
+    </div>
+
+    # Entitlements Verifier
+    
+     The **Entitlement Verifier** component validates if the user, given a set of entitlements and a comparator, has the necessary entitlements to render the child components.
+     
+     If the comparator is of type **```'or'```**, the user simply needs to have one of the entitlements to render the component. <br/>
+     If the comparator is of type **```'and'```**, the user must have all entitlements to render the component.
+
+
+    We present in the code below an example of how to import and use the component.
+
+    ````javascript
+    import { EntitlementsVerifier } from '@ufe/base';
+
+    <EntitlementsVerifier 
+        entitlements=["OPEN_PRODUCTS", "OPEN_ADMIN"] 
+        comparator="or">
+        {children}
+    </EntitlementsVerifier>
+    ````
+
+    <br/>
+    <br/>
+
+    ## Props
+
+    The component has the following parameters: 
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Default</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**entitlements***</td>
+                <td>List of entitlements to be validated by the component</td>
+                <td> ```string[]``` </td>
+                <td> - </td>
+            </tr>
+            <tr>
+                <td>**children***</td>
+                <td>Child components that will be covered by entitlements verifier </td>
+                <td> ```ReactNode``` </td>
+                <td> - </td>
+            </tr>
+            <tr>
+                <td>**comparator**</td>
+                <td>Comparison that must be made between the different entitlements in the list </td>
+                <td> ```'and' | 'or'``` </td>
+                <td> ```'or'``` </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <br/>
+    <br/>
+</div>
+
+<style>
+{`
+    a{
+        color: #BE63FF !important;
+        font-weight: bold;
+    }
+    a:hover{
+        color: #7F42AB !important;
+    }
+     table{
+        width: 100%;
+    }
+    thead tr{
+        border: none !important;
+        background: #fff;
+    }
+    thead th{
+        border: none !important;
+        color: #6c6c6c !important;
+    }
+    tbody{
+        box-shadow: 1px 1px 6px 1px #dedede;
+    }
+    tbody td{
+        text-align: center;
+        border: none !important;
+        background: #fff;
+        height: 30px;
+        color: #333;
+    }
+    .sb-icon {
+        background: #FBF6FF;
+        height: 60px;
+        width: 60px;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .sb-icon img {
+        width: 32px;
+    }
+ `}
+</style>

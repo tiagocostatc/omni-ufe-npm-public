@@ -1,0 +1,259 @@
+import { Meta } from "@storybook/blocks";
+import ComponentsIcon from "./../../assets/components-icon.svg";
+
+<Meta title="@UFE-Base/Components/Language Manager" />
+
+<div>
+    
+    <div className="sb-icon">
+        <img
+            src={ComponentsIcon}
+            alt="Components icon"/>
+    </div>
+
+    # Language Manager
+
+    The component **Language Manager** manages the various languages ​​defined in UFE and applies them to child components.
+    When initializing the component, it fetch and manage the dictionaries for the current language selected.
+
+    The component returns a ```JSX.Element``` containing ```LanguageContext.Provider```, providing LanguageManager instance and error state.
+
+    We present in the code below an example of how to import and use the component.
+
+    ```javascript
+     import { LanguageManagerProvider } from '@ufe/base';
+
+    <LanguageManagerProvider componentName="test">
+        {children}
+    </LanguageManagerProvider>
+    ```
+
+    <div className="sb-tag-container">
+        <p className="sb-tag-warning">
+            WARNING
+        </p>
+       This component has dependencies that it loads asynchronously. To achieve this a loading is used, by default it uses a plain "...loading" string, for a better loading please import the [Page Loader Provider](/docs/ufe-base-components-page-loader-providerr--docs) and set it as a parent of this provider.
+
+       This will also allow you to have a single component for the loading of your application.
+
+       ```jsx
+       import { LanguageManagerProvider, PageLoaderProvider } from '@ufe/base';
+
+        return (
+            <PageLoaderProvider>
+                <LanguageManagerProvider componentName="test">
+                    {children}
+                </LanguageManagerProvider>
+            </<PageLoaderProvider>
+        )
+        ```
+    </div>
+
+    <div className="sb-tag-container">
+        <p className="sb-tag-important">
+            IMPORTANT
+        </p>
+        The target used to fetch the configurations will be `ufe.components.{componentName}.i18n.{language}`<br/>
+    </div> 
+
+    This document also presents information about:
+
+        - [Props](#props)
+        - [Functions](#functions)
+
+    <br/>
+    <br/>
+
+    ## Props
+
+    The component has the following parameters: 
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Default</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**children***</td>
+                <td>The React nodes to be wrapped by the LanguageProvider.</td>
+                <td> ```ReactNode``` </td>
+                <td> - </td>
+            </tr>
+            <tr>
+                <td>**componentName***</td>
+                <td>The name of the component or module using the language configuration </td>
+                <td> ```string``` </td>
+                <td> - </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <br/>
+    <br/>
+
+    ## Functions
+
+    The component exports two functions **textI18n** and **labelI18n**. 
+    In this section we explain what each function consists and how they can be used.
+
+    ### labelI18n
+
+    **```labeli18n```** function returns a component that contains the i18nLabel. The result is a React component.
+
+    The function has the following parameters: 
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**key***</td>
+                <td>String that identifies the key of the label to be used</td>
+                <td> ```string``` </td>
+            </tr>
+            <tr>
+                <td>**args**</td>
+                <td>Array with args to replace on i18n string with key ```%s``` </td>
+                <td> ```Record<string, string>``` </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br/>
+
+    In the example below we show how it is possible to call this function.
+
+    ```javascript
+    import { useLanguage } from '@ufe/base';
+
+    function myComponent(){
+
+        const languages = useLanguage();
+
+        return(
+           <p> {languages.labelI18n('password')} </p>
+        );
+    }
+
+    ```
+
+    ### textI18n
+
+    **```texti18n```** function returns a string that contains the i18n content defined in the dictionary, according to the key passed.
+
+    The function has the following parameters: 
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**key***</td>
+                <td>String that identifies the key of the label to be used</td>
+                <td> ```string``` </td>
+            </tr>
+            <tr>
+                <td>**args**</td>
+                <td>Array with args to replace on i18n string with key ```%s``` </td>
+                <td> ```Record<string, string>``` </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br/>
+
+    In the example below we show how it is possible to call this function.
+
+    ```javascript
+    import { useLanguage } from '@ufe/base';
+
+    function myComponent(){
+
+        const languages = useLanguage();
+
+        return(
+           <p> {languages.textI18n('password')} </p>
+        );
+    }
+
+    ```
+</div>
+
+<style>
+{`
+    a{
+        color: #BE63FF !important;
+        font-weight: bold;
+    }
+    a:hover{
+        color: #7F42AB !important;
+    }
+     table{
+        width: 100%;
+    }
+    thead tr{
+        border: none !important;
+        background: #fff;
+    }
+    thead th{
+        border: none !important;
+        color: #6c6c6c !important;
+    }
+    tbody{
+        box-shadow: 1px 1px 6px 1px #dedede;
+    }
+    tbody td{
+        text-align: center;
+        border: none !important;
+        background: #fff;
+        height: 30px;
+        color: #333;
+    }
+    .sb-tag-important p {
+        background: #FF5B4D;
+        width: fit-content;
+        color: #fff !important;
+        padding: 0px 16px;
+        border-radius: 8px;
+        font-weight: bold;
+        margin: 0;
+    }
+    .sb-tag-warning p {
+        background: #FF9D47;
+        width: fit-content;
+        color: #fff !important;
+        padding: 0px 16px;
+        border-radius: 8px;
+        font-weight: bold;
+        margin: 0;
+    }
+    .sb-icon {
+        background: #FBF6FF;
+        height: 60px;
+        width: 60px;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .sb-icon img {
+        width: 32px;
+    }
+`}
+</style>

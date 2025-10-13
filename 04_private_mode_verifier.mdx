@@ -1,0 +1,115 @@
+import { Meta } from "@storybook/blocks";
+import ComponentsIcon from "./../../assets/components-icon.svg";
+
+<Meta title="@UFE-Base/Components/Private Mode Verifier" />
+
+<div>
+
+    <div className="sb-icon">
+        <img
+            src={ComponentsIcon}
+            alt="Components icon"/>
+    </div>
+
+    # Private Mode Verifier
+
+    The **Private Mode Verifier** component is used to conditionally render its children based on the application's private mode state.<br/>
+    It provides two modes of behavior, hiding the children or blurring them when the application is set to private.
+
+    We present in the code below an example of how to import and use the component.
+
+    ```jsx
+    import React from 'react';
+    import { PrivateModeVerifier } from '@ufe/base';
+    
+    function App() {
+        return (
+            <PrivateModeVerifier 
+                forbidden='blur'>
+                {children}
+            </PrivateModeVerifier>
+        );
+    }
+    ```
+
+    <br/>
+    <br/>
+
+    ## Props
+
+    The component has the following parameters: 
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Default</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**children***</td>
+                <td> Child components that will be covered by private mode verifier </td>
+                <td> ```ReactNode``` </td>
+                <td> - </td>
+            </tr>
+            <tr>
+                <td>**forbidden**</td>
+                <td> Determines the behavior when in private mode. Can be either `noShow` to not render the children components or `blur` to blur them. </td>
+                <td> ```'noShow' | 'blur'``` </td>
+                <td> ```noShow``` </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+</div>
+
+<style>
+  {`
+    a{
+        color: #BE63FF !important;
+        font-weight: bold;
+    }
+    a:hover{
+        color: #7F42AB !important;
+    }
+    table{
+        width: 100%;
+    }
+    thead tr{
+        border: none !important;
+        background: #fff;
+    }
+    thead th{
+        border: none !important;
+        color: #6c6c6c !important;
+    }
+    tbody{
+        box-shadow: 1px 1px 6px 1px #dedede;
+    }
+    tbody td{
+        text-align: center;
+        border: none !important;
+        background: #fff;
+        height: 30px;
+        color: #333;
+    }
+    .sb-icon {
+        background: #FBF6FF;
+        height: 60px;
+        width: 60px;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .sb-icon img {
+        width: 32px;
+    }
+ `}
+</style>

@@ -1,0 +1,494 @@
+import { Meta } from "@storybook/blocks";
+import EventsIcon from "./../../assets/events-icon.svg";
+
+<Meta title="@UFE-Base/Events/Application" />
+
+<div>
+
+    <div className="sb-icon">
+        <img
+            src={EventsIcon}
+            alt="Events icon"/>
+    </div>
+
+    # Application Events
+
+    The **application events** are responsible for managing the UFE applications, opening or closing the applications defined in journeys manifest. 
+    This document presents documentation for each of the events offered by **```@ufe/base```** module, as well as examples of how they can be used.
+
+    The events described in this document are: 
+
+    - [Open Application](#open-application)
+    - [Open With Context](#open-with-context)
+    - [Close Application](#close-application)
+    - [Change Current Application](#change-current-application)
+    - [Set Application Player Fullscreen](#set-application-player-fullscreen)
+    - [Set Application Dirty](#set-application-dirty)
+    - [Set Application Subtitle](#set-application-subtitle)
+   
+    <br/>
+    <br/>
+
+    ## Open Application
+
+    The **openApplication** function in ``@ufe/base`` module is responsible for dispatch de event ``ufe-open-journey``.
+    This function is responsible for opening an Application. This means the application should be registered in the applications/journeys manifest.
+
+    <div className="sb-tag-container">
+        <p className="sb-tag-important">
+            IMPORTANT
+        </p>
+        If the configuration on the application "type" is set as: 
+        - **context_unique**: If there is already an application open with the same id on that interaction, it should  set it has the current application instead of opening a new one.
+        - **unique**: If there is already an application open (in any interaction), it should set it has the current application instead of opening a new one.
+ 
+        In both these scenarios, it we change the current application instead of opening a new one, we should also send the args (if they exist) to the application.
+    </div> 
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**Id***</td>
+                <td>The id of the application present in the applications/journeys manifest. </td>
+                <td> ```string``` | ```number``` </td>
+            </tr>
+            <tr>
+                <td>**args**</td>
+                <td>Optional arguments that will be sent to application on boot.  </td>
+                <td> ```any``` </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br/>
+
+    ### Code example
+
+    In the example below we show how to open the journey with the Id **10**, defined in the journeys manifest.
+
+    ```javascript
+    import { openApplication } from '@ufe/base';
+
+    export default function myFunction(){
+        const id="10";
+        const args={ test: 'testing' };
+
+        openApplication(id, args);
+    }
+    ```
+    <br/>
+    <br/>
+
+    ## Open With Context
+
+    The **openWithContext** function in ``@ufe/base`` module is responsible for dispatch de event ``ufe-open-journey-with-context``.
+    This function is responsible for opening a new interaction with a given set of applications available.
+    The applications need to exist in the applications/journey manifest.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**applicationsToOpen***</td>
+                <td>List of applications to be open on the new interactions. They should contain the journeyId and optionally the arguments</td>
+                <td> ```ApplicationInfo[]``` </td>
+            </tr>
+            <tr>
+                <td>**interaction***</td>
+                <td>Optional arguments that will be sent to application on boot.  </td>
+                <td> ```CreateInteractionObject``` </td>
+            </tr>
+        </tbody>
+    </table>
+
+    The parameter type **```ApplicationInfo```** is composed of the following properties:
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**journeyId***</td>
+                <td>The id of the application present in the applications/journeys manifest. </td>
+                <td> ```string``` | ```number``` </td>
+            </tr>
+            <tr>
+                <td>**args**</td>
+                <td>Optional arguments that will be sent to application on boot. </td>
+                <td> ```any``` </td>
+            </tr>
+        </tbody>
+    </table>
+
+    The parameter type **```CreateInteractionObject```** is composed of the following properties:
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**identifier**</td>
+                <td>The 360 customer name </td>
+                <td> ```string``` </td>
+            </tr>
+            <tr>
+                <td>**shortIdentifier**</td>
+                <td>The 360 customer shortname </td>
+                <td> ```string``` </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br />
+
+    ### Code example
+
+    In the example below we show how to open an application with context.
+
+    ```javascript
+    import { openWithContext } from '@ufe/base';
+
+    export default function myFunction(){
+        const applicationsToOpen = [
+            { journeyId: 2, args: { test: 'testing' } }
+        ];
+        const interaction={
+            id: 5678,
+            identifier: 'John Silver',
+            shortIdentifier: 'JS',
+            instance_id: '_5678',
+            label: 'text',
+            context: {
+                test: 'Testing interaction'
+            }
+        };
+
+        openWithContext(applicationsToOpen, interaction);
+    }
+    ```
+    <br/>
+    <br/>
+
+
+    ## Close Application
+
+    The **closeApplication** function in ``@ufe/base`` module is responsible for dispatch de event ``ufe-close-journey``.
+    This function is responsible for closing an application. It wll have distinct behaviors considering the configurations that are being used.
+  
+    The application may be closed with its friendly id if it is unique/context_unique or the only instance available.
+    Otherwise, the full identifier should be used.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**id***</td>
+                <td>The identifier of the application to be closed. If no identifier is provided, and this is being used in the context of an applicatio, it will close itself</td>
+                <td> ```string``` | ```number``` </td>
+            </tr>
+            <tr>
+                <td>**interactionId**</td>
+                <td>The identifier of the interaction where the application should belong to. If no identifier is passed it will use the current selected interaction  </td>
+                <td> ```string``` </td>
+            </tr>
+            <tr>
+                <td>**forced**</td>
+                <td>If this flag is set as active, it will force closing the application, even if it has unsaved work  </td>
+                <td> ```boolean``` </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br/>
+
+    ### Code example
+
+    In the example below we show how to close an application.
+
+    ```javascript
+    import { closeApplication } from '@ufe/base';
+
+    export default function myFunction(){
+        const id = 2;
+
+        closeApplication(id);
+    }
+    ```
+    <br/>
+    <br/>
+
+    ## Change Current Application
+
+    The **changeCurrentApplication** function in ``@ufe/base`` module is responsible for dispatch de event ``ufe-change-journey``.
+    This function is responsible for changing the current application being shown to the user.
+    Currently the Unified Frontend only shows one application as the current. This function allows to change the current application by API.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**id***</td>
+                <td>The identifier of the target application. The application needs to be open</td>
+                <td> ```string``` | ```number``` </td>
+            </tr>
+            <tr>
+                <td>**interactionId**</td>
+                <td>The identifier of the interaction where the application is located. If no identifier is passed it will use the current selected interaction  </td>
+                <td> ```string``` </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br/>
+
+    ### Code example
+
+    In the example below we show how to change the current application opened.
+
+    ```javascript
+    import { changeCurrentApplication } from '@ufe/base';
+
+    export default function myFunction(){
+        const id = 2;
+
+        changeCurrentApplication(id);
+    }
+    ```
+    <br/>
+    <br/>
+
+
+
+    ## Set Application Player Fullscreen
+
+    The **setApplicationPlayerFullscreen** function in ``@ufe/base`` module is responsible for dispatch de event ``ufe-fullscreen-journey``.
+    This function will toggle the Application Player as fullscreen.
+
+    ### Code example
+
+    In the example below we show how to put the current application in fullscreen.
+
+    ```javascript
+    import { setApplicationPlayerFullscreen } from '@ufe/base';
+
+    export default function myFunction(){
+       
+        setApplicationPlayerFullscreen();
+    }
+    ```
+    <br/>
+    <br/>
+
+    ## Set Application Dirty
+
+    The **setApplicationDirty** function in ``@ufe/base`` module is responsible for dispatch de event ``ufe-set-dirty-journey``.
+    This function is responsible for marking an Application as dirty, meaning it has unsaved work.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**id***</td>
+                <td>The identifier of the target applidation</td>
+                <td> ```string``` </td>
+            </tr>
+            <tr>
+                <td>**value***</td>
+                <td>Value to apply to the dirty flag </td>
+                <td> ```boolean``` </td>
+            </tr>
+            <tr>
+                <td>**interactionId**</td>
+                <td>The identififer of the interaction where the application belongs to. If no identifier is passed it will use the current selected interaction  </td>
+                <td> ```string``` </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br/>
+
+    ### Code example
+
+    In the example below we show how to put the current application in fullscreen.
+
+    ```javascript
+    import { setApplicationDirty } from '@ufe/base';
+
+    export default function myFunction(){
+        const id = "2";
+        const value = true;
+       
+        setApplicationDirty(id, value);
+    }
+    ```
+    <br/>
+    <br/>
+
+
+    ## Set Application Subtitle
+
+    The **setApplicationSubtitle** function in ``@ufe/base`` module is responsible for dispatch de event ``ufe-set-subtitle-journey``.
+    This function is responsible for adding a subtitle to an Application. 
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**id***</td>
+                <td>The identifier of the target applidation</td>
+                <td> ```string``` </td>
+            </tr>
+            <tr>
+                <td>**value***</td>
+                <td>The value to assign as subtitle of the application </td>
+                <td> ```string``` </td>
+            </tr>
+            <tr>
+                <td>**interactionId**</td>
+                <td>The identififer of the interaction where the application belongs to. If no identifier is passed it will use the current selected interaction </td>
+                <td> ```string``` </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br/>
+
+    ### Code example
+
+    In the example below we show how to put the current application in fullscreen.
+
+    ```javascript
+    import { setApplicationSubtitle } from '@ufe/base';
+
+    export default function myFunction(){
+        const id = "2";
+        const value = teste application;
+       
+        setApplicationSubtitle(id, value);
+    }
+    ```
+</div>
+
+<style>
+ {`
+    li::marker{
+        color: #BE63FF;
+    }
+    a{
+        color: #BE63FF !important;
+        font-weight: bold;
+    }
+    a:hover{
+        color: #7F42AB !important;
+    }
+    table{
+        width: 100%;
+    }
+    thead tr{
+        border: none !important;
+        background: #fff;
+    }
+    thead th{
+        border: none !important;
+        color: #6c6c6c !important;
+    }
+    tbody{
+        box-shadow: 1px 1px 6px 1px #dedede;
+    }
+    tbody td{
+        text-align: center;
+        border: none !important;
+        background: #fff;
+        height: 30px;
+        color: #333;
+    }
+      .sb-tag-container{
+        display: flex;
+        flex-direction: column;
+        border-left: 1px solid #E5E5E5;
+        padding: 16px 0px 16px 16px;
+        gap: 12px;
+    }
+    .sb-tag-container p {
+        margin: 0px;
+        color: #8E8E8E;
+    }
+    .sb-tag-container li {
+        margin: 0px;
+        color: #8E8E8E;
+    }
+    .sb-tag-important p {
+        background: #FF5B4D;
+        width: fit-content;
+        color: #fff !important;
+        padding: 0px 16px;
+        border-radius: 8px;
+        font-weight: bold;
+        margin: 0;
+    }
+    .sb-icon {
+        background: #FBF6FF;
+        height: 60px;
+        width: 60px;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .sb-icon img {
+        width: 32px;
+    }
+ `}
+</style>

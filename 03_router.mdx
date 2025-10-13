@@ -1,0 +1,327 @@
+import { Meta } from "@storybook/blocks";
+import EventsIcon from "./../../assets/events-icon.svg";
+
+<Meta title="@UFE-Base/Events/Router" />
+
+<div>
+
+    <div className="sb-icon">
+        <img
+            src={EventsIcon}
+            alt="Events icon"/>
+    </div>
+
+    # Router Events
+
+    The **router events** manage breadcrumb navigation within the application and are responsible for pushing/poping breadcrumbs, adding/removing arguments and setting the breadcrumb path.<br/> 
+    This document presents information for each of the events offered by **``@ufe/base``** module, as well as examples of how they can be used.
+
+
+    The events described in this document are: 
+
+    - [Pushing a Breadcrumb](#pushing-a-breadcrumb)
+    - [Popping a Breadcrumb](#popping-a-breadcrumb)
+    - [Adding an Argument to a Breadcrumb](#adding-an-argument-to-a-breadcrumb)
+    - [Removing an Argument from a Breadcrumb](#removing-an-argument-from-a-breadcrumb)
+    - [Unsafely Setting Breadcrumb Path](#unsafely-setting-breadcrumb-path)
+
+    <br/>
+    <br/>
+
+    ## Pushing a Breadcrumb
+
+    The **routerPush** function in ``@ufe/base`` module is responsible for dispatching the event ``ufe-events-router-push``.<br/> 
+    This event is used for pushing a breadcrumb to the current or specified target application.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Default</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**path***</td>
+                <td> The breadcrumb to be pushed.</td>
+                <td> ```string``` </td>
+                <td> - </td>
+            </tr>
+            <tr>
+                <td>**target**</td>
+                <td> Target instance id. If no target is given, the push will be done to the current application. </td>
+                <td> ```string``` </td>
+                <td> - </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br />
+
+    ### Code Example
+
+    Below is an example of how to push the breadcrumb **home** to the current application or the application with the instanceId **126**.
+
+    ```js
+    import { routerPush } from '@ufe/base';
+
+    // To push a breadcrumb to the current application
+    routerPush('home');
+
+    // To push a breadcrumb to a specific target application with instanceId 126
+    routerPush('home', '126');
+    ```
+
+    <br />
+    <br />
+
+    ## Popping a Breadcrumb
+
+    The **routerPop** function in ``@ufe/base`` module is responsible for dispatching the event ``ufe-events-router-pop``.<br/> 
+    This event is used for popping a breadcrumb from the current or specified target application.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Default</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**target**</td>
+                <td> Target instance id. If no target is given, the pop will be done to the current application. </td>
+                <td> ```string``` </td>
+                <td> - </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br />
+
+    ### Code Example
+
+    Below is an example of how to pop from the current application or the application with the instanceId **126**.
+
+    ```js
+    import { routerPop } from '@ufe/base';
+
+    // To pop a breadcrumb from the current application
+    routerPop();
+
+    // To pop a breadcrumb from a specific target application
+    routerPop('126');
+    ```
+
+    <br />
+    <br />
+
+    ## Adding an Argument to a Breadcrumb
+
+    The **routerAddArgument** function in ``@ufe/base`` module is responsible for dispatching the event ``ufe-events-router-add-arguments``.<br/> 
+    This event is used for adding an argument to the current breadcrumb path in the current or specified target application.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Default</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**key***</td>
+                <td> The key for the argument. </td>
+                <td> ```string``` </td>
+                <td> - </td>
+            </tr>
+            <tr>
+                <td>**value***</td>
+                <td> The value for the argument. </td>
+                <td> ```string``` </td>
+                <td> - </td>
+            </tr>
+            <tr>
+                <td>**target**</td>
+                <td> Target instance id. If no target is given, it will be done to the current application. </td>
+                <td> ```string``` </td>
+                <td> - </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br />
+
+    ### Code Example
+
+    Below is an example of how to add an argument to a breadcrumb with the key **user** and value **John** on the current application or the application with the instanceId **126**.
+
+
+    ```js
+    import { routerAddArgument } from '@ufe/base';
+
+    // To add an argument to the breadcrumb in the current application
+    routerAddArgument('user', 'John');
+
+    // To add an argument to the breadcrumb in a specific target application
+    routerAddArgument('user', 'John', '126');
+    ```
+
+    <br />
+    <br />
+
+    ## Removing an Argument from a Breadcrumb
+
+    The **routerRemoveArgument** function in ``@ufe/base`` module is responsible for dispatching the event ``ufe-events-router-remove-arguments``.<br/> 
+    This event is used for removing an argument from the current breadcrumb path in the current or specified target application.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Default</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**key***</td>
+                <td> The key for the argument. </td>
+                <td> ```string``` </td>
+                <td> - </td>
+            </tr>
+            <tr>
+                <td>**target**</td>
+                <td> Target instance id. If no target is given, it will be done to the current application. </td>
+                <td> ```string``` </td>
+                <td> - </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br />
+
+    ### Code Example
+
+    Below is an example of how to remove an argument of a breadcrumb with the key **user** on the current application or the application with the instanceId **126**.
+
+    ```js
+    import { routerRemoveArgument } from '@ufe/base';
+
+    // To remove an argument from the breadcrumb in the current application
+    routerRemoveArgument('user');
+
+    // To remove an argument from the breadcrumb in a specific target application
+    routerRemoveArgument('user', '126');
+    ```
+
+    <br />
+    <br />
+
+    ## Unsafely Setting Breadcrumb Path
+
+    The **routerUNSAFESet** function in ``@ufe/base`` module is responsible for dispatching the event ``ufe-events-router-UNSAFE-set``.<br/> 
+    This event is used for unsafely setting the absolute path of the breadcrumbs in the current or specified target application.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Default</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**path***</td>
+                <td> The full absolute path of the breadcrumbs. </td>
+                <td> ```string``` </td>
+                <td> - </td>
+            </tr>
+            <tr>
+                <td>**target**</td>
+                <td> Target instance id. If no target is given, it will be done to the current application. </td>
+                <td> ```string``` </td>
+                <td> - </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br />
+
+    ### Code Example
+
+    Below is an example of how to unsafely set the  breadcrumb path **home/myApp** on the current application or the application with the instanceId **126**..
+
+    ```js
+    import { routerUNSAFESet } from '@ufe/base';
+
+    // To unsafely set the breadcrumb path in the current application
+    routerUNSAFESet('home/myApp');
+
+    // To unsafely set the breadcrumb path in a specific target application
+    routerUNSAFESet('home/myApp', '126');
+    ```
+</div>
+
+<style>
+  {`
+    li::marker{
+        color: #BE63FF;
+    }
+    a{
+        color: #BE63FF !important;
+        font-weight: bold;
+    }
+    a:hover{
+        color: #7F42AB !important;
+    }
+    table{
+        width: 100%;
+    }
+    thead tr{
+        border: none !important;
+        background: #fff;
+    }
+    thead th{
+        border: none !important;
+        color: #6c6c6c !important;
+    }
+    tbody{
+        box-shadow: 1px 1px 6px 1px #dedede;
+    }
+    tbody td{
+        text-align: center;
+        border: none !important;
+        background: #fff;
+        height: 30px;
+        color: #333;
+    }
+    .sb-icon {
+        background: #FBF6FF;
+        height: 60px;
+        width: 60px;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .sb-icon img {
+        width: 32px;
+    }
+ `}
+</style>

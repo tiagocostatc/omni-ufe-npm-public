@@ -1,0 +1,643 @@
+import { Meta } from "@storybook/blocks";
+import EventsIcon from "./../../assets/events-icon.svg";
+
+<Meta title="@UFE-Base/Events/Interactions" />
+
+<div>
+
+    <div className="sb-icon">
+        <img
+            src={EventsIcon}
+            alt="Events icon"/>
+    </div>
+
+    # Interactions Events
+
+    The **interaction events** are responsible for managing the UFE context, removing or adding users to the context.
+    Furthermore, these events also control the visibility of the 360 ​​component.
+    This document presents documentation for each of the events offered by **``@ufe/base``** module, as well as examples of how they can be used.
+
+    The events described in this document are: 
+
+    - [Add Interaction](#add-interaction)
+    - [Close Interaction](#close-interaction)
+    - [Close All Interactions](#close-all-interactions)
+    - [Change Current Interaction](#change-current-interaction)
+    - [Add Information To Interaction](#add-information-to-interaction)
+    - [Search Customer](#search-customer)
+    - [Set 360 Expansion State](#set-360-expansion-state)
+    - [Open Floating Widget](#open-floating-widget)
+    - [Set Floating Widget](#set-floating-widget)
+    - [Set Context Menu State](#set-context-menu-state)
+
+    <br/>
+    <br/>
+
+    ## Add Interaction
+
+    The **addInteraction** function in ``@ufe/base`` module is responsible for dispatch de event ``ufe-add-interaction``.
+    This event will add a new interaction to the UFE context. An interaction corresponds to information from a contextualized 360 customer.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Default</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**instanceId***</td>
+                <td>The interaction identifier. </td>
+                <td> ```string``` | ```number``` </td>
+                <td> - </td>
+            </tr>
+            <tr>
+                <td>**interaction***</td>
+                <td>The contextualized interaction information. </td>
+                <td> ```InteractionObject``` </td>
+                <td> - </td>
+            </tr>
+        </tbody>
+    </table>
+
+    The parameter type **```InteractionObject```** is composed of the following properties:
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**identifier***</td>
+                <td>The 360 customer name. </td>
+                <td> ```string``` </td>
+            </tr>
+            <tr>
+                <td>**shortIdentifier***</td>
+                <td>The 360 customer shortname. </td>
+                <td> ```string``` </td>
+            </tr>
+            <tr>
+                <td>**context***</td>
+                <td> Customer relevant information. </td>
+                <td> ```any``` </td>
+            </tr>
+            <tr>
+                <td>**id***</td>
+                <td>The interaction identifier. </td>
+                <td> ```number``` </td>
+            </tr>
+            <tr>
+                <td>**label***</td>
+                <td>The interaction type. </td>
+                <td> ```string``` </td>
+            </tr>
+            <tr>
+                <td>**colorIndex**</td>
+                <td>The interaction color representation. </td>
+                <td> ```string``` </td>
+            </tr>
+            <tr>
+                <td>**iconLabel**</td>
+                <td>The interaction icon representation. </td>
+                <td> ```string``` </td>
+            </tr>
+            <tr>
+                <td>**instance_id**</td>
+                <td>The interaction instance identifier. </td>
+                <td> ```string``` </td>
+            </tr>
+            <tr>
+                <td>**startedTime**</td>
+                <td>The interaction start time. </td>
+                <td> ```number``` </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br/>
+
+    ### Code example
+
+    In the example below we show how to add a new interaction with the id **_5678**, which will add information about the user **John Silver** to the context.
+
+    ```javascript
+    import { addInteraction } from '@ufe/base';
+
+    export default function myFunction(){
+        const instanceId="_5678";
+        const interaction={
+            id: 5678,
+            identifier: 'John Silver',
+            shortIdentifier: 'JS',
+            instance_id: '_5678',
+            label: 'text',
+            context: {
+                test: 'Testing interaction'
+            }
+        }
+
+        addInteraction(instanceId, interaction);
+    }
+    ```
+    <br/>
+    <br/>
+
+
+    ## Close Interaction
+
+    The **closeInteraction** function in ``@ufe/base`` module is responsible for dispatch de event ``ufe-close-interaction``.
+    This event will remove the interaction (a 360 customer) from the UFE context.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Default</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**instanceId***</td>
+                <td>The interaction identifier. </td>
+                <td> ```string``` | ```number``` </td>
+                <td> - </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br/>
+
+    ### Code example
+
+    In the example below we remove the interaction (a 360 customer) with the id **_5678** from the context.
+
+    ```javascript
+    import { closeInteraction } from '@ufe/base';
+
+    export default function myFunction(){
+        const instanceId="_5678";
+
+        closeInteraction(instanceId);
+    }
+    ```
+    <br/>
+    <br/>
+
+
+
+    ## Close All Interactions
+
+    The **closeAllInteractions** function in ``@ufe/base`` module is responsible for dispatch de event ``ufe-close-all-interactions``.
+    This event will remove all interactions from the UFE context, returning to an empty state. 
+
+    <br/>
+
+    ### Code example
+
+    In the example below we remove all the interactions from the context.
+
+    ```javascript
+    import { closeAllInteractions } from '@ufe/base';
+
+    export default function myFunction(){
+        closeAllInteractions();
+    }
+    ```
+
+    <br/>
+    <br/>
+
+    ## Change Current Interaction
+
+    The **changeCurrentInteraction** function in ``@ufe/base`` module is responsible for dispatch de event ``ufe-change-interaction``.
+    This event will change the interaction that is currently selected in the context.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Default</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**instanceId***</td>
+                <td>The interaction identifier. </td>
+                <td> ```string``` | ```number``` </td>
+                <td> - </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br/>
+
+    ### Code example
+
+    In the example below we change the current interaction selected in the context.
+
+    ```javascript
+    import { changeCurrentInteraction } from '@ufe/base';
+
+    export default function myFunction(){
+        const instanceId="_1234";
+
+        changeCurrentInteraction(instanceId);
+    }
+    ```
+
+    <br/>
+    <br/>
+
+
+
+    ## Add Information To Interaction
+
+    The **addInformationToInteraction** function in ``@ufe/base`` module is responsible for dispatch de event ``ufe-add-information-to-interaction``.
+    This event will add or update information about the interaction currently selected in the context.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Default</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**interaction***</td>
+                <td> Information that will be added to the current interaction </td>
+                <td> ```InteractionInformationObject``` </td>
+                <td> - </td>
+            </tr>
+        </tbody>
+    </table>
+
+    The parameter type **```InteractionInformationObject```** is composed of the following properties:
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**identifier**</td>
+                <td>The 360 customer name. </td>
+                <td> ```string``` </td>
+            </tr>
+            <tr>
+                <td>**shortIdentifier**</td>
+                <td>The 360 customer shortname. </td>
+                <td> ```string``` </td>
+            </tr>
+            <tr>
+                <td>**context**</td>
+                <td> Customer relevant information. </td>
+                <td> ```any``` </td>
+            </tr>
+            <tr>
+                <td>**label**</td>
+                <td>The interaction type. </td>
+                <td> ```string``` </td>
+            </tr>
+            <tr>
+                <td>**colorIndex**</td>
+                <td>The interaction color representation. </td>
+                <td> ```string``` </td>
+            </tr>
+            <tr>
+                <td>**iconLabel**</td>
+                <td>The interaction icon representation. </td>
+                <td> ```string``` </td>
+            </tr>
+            <tr>
+                <td>**instance_id**</td>
+                <td>The interaction instance identifier. </td>
+                <td> ```string``` </td>
+            </tr>
+            <tr>
+                <td>**startedTime**</td>
+                <td>The interaction start time. </td>
+                <td> ```number``` </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br/>
+
+    ### Code example
+
+    In the example below we change the information of the current interaction selected in the context.
+
+    ```javascript
+    import { addInformationToInteraction } from '@ufe/base';
+
+    export default function myFunction(){
+        const contextNewInformation : InteractionInformationObject = {
+            shortIdentifier: 'MV',
+        };
+
+        addInformationToInteraction(contextNewInformation);
+    }
+    ```
+
+    <br/>
+    <br/>
+
+
+    ## Search Customer
+
+    The **searchCustomer** function in ``@ufe/base`` module is responsible for dispatch de event ``ufe-search-customer``.
+    This event will search for a 360 customer.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Default</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**type***</td>
+                <td> Type of the identifier passed </td>
+                <td> ```string``` </td>
+                <td> - </td>
+            </tr>
+            <tr>
+                <td>**id***</td>
+                <td> 360 customer identifier </td>
+                <td> ```string``` | ```number``` </td>
+                <td> - </td>
+            </tr>
+            <tr>
+                <td>**journeysToOpen***</td>
+                <td> Set of journeys that can be opened when the user is contextualized  </td>
+                <td> ```Array<ApplicationInfo>``` </td>
+                <td> - </td>
+            </tr>
+        </tbody>
+    </table>
+
+    The parameter type **```ApplicationInfo```** is composed of the following properties:
+     <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**journeyId***</td>
+                <td>The id of the application present in the applications/journeys manifest. </td>
+                <td> ```string``` | ```number``` </td>
+            </tr>
+            <tr>
+                <td>**args**</td>
+                <td>Optional arguments that will be sent to application on boot. </td>
+                <td> ```any``` </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br/>
+
+    ### Code example
+
+    In the example below we search for a 360 customer, using the tax number **234567890**.
+    
+    ```javascript
+    import { searchCustomer } from '@ufe/base';
+
+    export default function myFunction(){
+        cont type = "nif";
+        const id = "234567890";
+        const args = [];
+
+        searchCustomer(type, id, args);
+    }
+    ```
+
+    <br/>
+    <br/>
+
+    ## Set 360 Expansion State
+
+    The **set360ExpansionState** function in ``@ufe/base`` module is responsible for dispatch de event ``ufe-set-360-expansion-state``.
+    This event will expand/collapse the 360 component in UFE.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Default</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**expand***</td>
+                <td> Value to open/close 360 component </td>
+                <td> ```boolean``` </td>
+                <td> - </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br/>
+
+    ### Code example
+
+    In the example below we open the 360 component.
+    
+    ```javascript
+    import { set360ExpansionState } from '@ufe/base';
+
+    export default function myFunction(){
+        set360ExpansionState(true);
+    }
+    ```
+
+    <br/>
+    <br/>
+
+    ## Open Floating Widget
+
+    The **openFloatingWidget** function in ``@ufe/base`` module is responsible for dispatch de event ``ufe-open-floating-widget``.
+    This event will open 360 floating widgets in UFE.
+
+    <br/>
+
+    ### Code example
+
+    In the example below we open 360 floating widgets.
+    
+    ```javascript
+    import { openFloatingWidget } from '@ufe/base';
+
+    export default function myFunction(){
+        openFloatingWidget();
+    }
+    ```
+
+    <br/>
+    <br/>
+
+    ## Set Floating Widget
+
+    The **setFloatingWidget** function in ``@ufe/base`` module is responsible for dispatch de event ``ufe-set-floating-widget``.
+    This event will open and set a specific floating widget in UFE.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Default</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**id***</td>
+                <td> The identifier of the target floating widget. </td>
+                <td> ```string``` </td>
+                <td> - </td>
+            </tr>
+            <tr>
+                <td>**visibility***</td>
+                <td> Controls if the floating widget will appear as visibility by default. </td>
+                <td> ```boolean``` </td>
+                <td> - </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br/>
+
+    ### Code example
+
+    In the example below we set a floating widgets.
+    
+    ```javascript
+    import { setFloatingWidget } from '@ufe/base';
+
+    export default function myFunction(){
+        setFloatingWidget('Calculator', true);
+    }
+    ```
+
+    ## Set Context Menu State
+
+    The **setContextMenuState** function in ```@ufe/base``` module is responsible for dispatching the event **```ufe-set-context-menu-state```**.
+    This event will change the context search menu state in UFE.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**value***</td>
+                <td> The value that controls if the context search menu should be open or closed. </td>
+                <td> ```boolean``` </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br/>
+
+    ### Code example
+
+    In the example below we show how to set the context search menu state.
+
+    ```javascript
+    import { setContextMenuState } from '@ufe/base';
+
+    export default function myFunction(){
+        setContextMenuState(true);
+    }
+    ```
+
+</div>
+
+<style>
+  {`
+    li::marker{
+        color: #BE63FF;
+    }
+    a{
+        color: #BE63FF !important;
+        font-weight: bold;
+    }
+    a:hover{
+        color: #7F42AB !important;
+    }
+    table{
+        width: 100%;
+    }
+    thead tr{
+        border: none !important;
+        background: #fff;
+    }
+    thead th{
+        border: none !important;
+        color: #6c6c6c !important;
+    }
+    tbody{
+        box-shadow: 1px 1px 6px 1px #dedede;
+    }
+    tbody td{
+        text-align: center;
+        border: none !important;
+        background: #fff;
+        height: 30px;
+        color: #333;
+    }
+    .sb-icon {
+        background: #FBF6FF;
+        height: 60px;
+        width: 60px;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .sb-icon img {
+        width: 32px;
+    }
+ `}
+</style>

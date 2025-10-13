@@ -1,0 +1,201 @@
+import { Meta } from "@storybook/blocks";
+import ComponentsIcon from "./../../assets/components-icon.svg";
+
+<Meta title="@UFE-Base/Components/Page Loader Providerr" />
+
+<div>
+
+    <div className="sb-icon">
+        <img
+            src={ComponentsIcon}
+            alt="Components icon"/>
+    </div>
+
+    # Page Loader Provider
+
+    A shared module that provides a global **Page Loader** component using React Context and controlled via a custom hook. This component should encapsulate 
+    all your application and the interaction with it should be by using the hook.
+
+    Useful for displaying a fullscreen loading indicator across your app.
+
+    ### 1. Wrap your app with the provider
+
+    ```jsx
+    //<app_name>/src/components/index.tsx
+    ...
+    import { PageLoaderProvider } from '@shared/modules';
+
+    function App() {
+        return (
+            <PageLoaderProvider>
+                <AppName />
+            </PageLoaderProvider>
+        );
+    }
+    ```
+
+    ### 2. Trigger the loader from any component
+
+    ```jsx
+    import { usePageLoader } from '@shared/modules';
+
+    function SubmitButton() {
+        const { startLoading, stopLoading } = usePageLoader();
+
+        const handleSubmit = async () => {
+            startLoading();
+            await submitForm();
+            stopLoading();
+        };
+
+        return <Button onClick={handleSubmit}>Submit</Button>;
+    }
+    ```
+
+    ### 3. Trigger the loader for a specific set of requests (that need to be completed before the generic loader stops).
+
+    ```jsx
+    import { usePageLoader } from '@shared/modules';
+
+    function SubmitButton() {
+        const { startLoading, stopLoading } = usePageLoader();
+
+        const handleSubmit = async () => {
+            startLoading(false, 'submitForm');
+            await submitForm();
+            stopLoading('submitForm');
+        };
+
+        return <Button onClick={handleSubmit}>Submit</Button>;
+    }
+    ```
+
+    ### 4. Check loader status
+
+    ```jsx
+    import { usePageLoader } from '@shared/modules';
+
+    function SubmitButton() {
+        const { isLoading } = usePageLoader();
+
+        return <Typography>{isLoading ? 'The loader is active' : 'The loader is not active'}</Typography>;
+    }
+    ```
+
+    <br/>
+    <br/>
+
+    ## Props
+
+    The component has the following parameters: 
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Default</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**children***</td>
+                <td> Child components that will be covered by private mode verifier </td>
+                <td> ```ReactNode``` </td>
+                <td> - </td>
+            </tr>
+            <tr>
+                <td>**title**</td>
+                <td> The title message that will be displayed to the end user when the loading is active. </td>
+                <td> ```string``` </td>
+                <td> ```Loading...``` </td>
+            </tr>
+        </tbody>
+    </table>
+
+    ## Returned Properties
+
+    The component has the following return properties for destructuring: 
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**startLoading***</td>
+                <td> Starts the loading component in the application. If the opaqueLoading loading is set as true, the loading component will have an opaque background (that will return to the default value when the stop loading is set) </td>
+                <td> ```(opaqueLoading: boolean, key: string = 'default') => void``` </td>
+            </tr>
+            <tr>
+                <td>**stopLoading**</td>
+                <td> Stops the loading component in the application for a specific value of the current loading state. </td>
+                <td> ```(key: string = 'default') => void``` </td>
+            </tr>
+            <tr>
+                <td>**isLoading**</td>
+                <td> Variable that states if the loading component is active. </td>
+                <td> ```boolean``` </td>
+            </tr>
+            <tr>
+                <td>**loadingStates**</td>
+                <td> Variable that has the information regarding all the keys currently loading. </td>
+                <td> ```string[]``` </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+</div>
+
+<style>
+  {`
+    a{
+        color: #BE63FF !important;
+        font-weight: bold;
+    }
+    a:hover{
+        color: #7F42AB !important;
+    }
+    table{
+        width: 100%;
+    }
+    thead tr{
+        border: none !important;
+        background: #fff;
+    }
+    thead th{
+        border: none !important;
+        color: #6c6c6c !important;
+    }
+    tbody{
+        box-shadow: 1px 1px 6px 1px #dedede;
+    }
+    tbody td{
+        text-align: center;
+        border: none !important;
+        background: #fff;
+        height: 30px;
+        color: #333;
+    }
+    .sb-icon {
+        background: #FBF6FF;
+        height: 60px;
+        width: 60px;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .sb-icon img {
+        width: 32px;
+    }
+ `}
+</style>

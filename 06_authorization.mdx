@@ -1,0 +1,583 @@
+import { Meta } from "@storybook/blocks";
+import EventsIcon from "./../../assets/events-icon.svg";
+
+<Meta title="@UFE-Base/Events/Authorization" />
+
+<div>
+
+    <div className="sb-icon">
+        <img
+            src={EventsIcon}
+            alt="Events icon"/>
+    </div>
+
+    # Authorization Events
+
+    The **authorization events** are responsible for managing the user session, authentication tokens, user preferences, and entitlements within the Unified Frontend.<br/>
+    This document presents information for each of the events offered by the **``@ufe/base``** module, as well as examples of how they can be used.
+
+    The events described in this document are: 
+
+    - [Authorization Expired Disclaimer](#authorization-expired-disclaimer)
+    - [Changing Authentication Tokens](#changing-authentication-tokens)
+    - [Destroying Tokens on Session Expiration](#destroying-tokens-on-session-expiration)
+    - [Logging Out](#logging-out)
+    - [Adding User Preferences](#adding-user-preferences)
+    - [Removing User Preferences](#removing-user-preferences)
+    - [Updating User Preferences](#updating-user-preferences)
+    - [Setting Entitlements](#setting-entitlements)
+    - [Adding Entitlements](#adding-entitlements)
+    - [Removing Entitlements](#removing-entitlements)
+    - [Updating User Information](#updating-user-information)
+    - [Set Private Mode](#set-private-mode)
+
+    <br/>
+    <br/>
+
+    ## Authorization Expired Disclaimer
+
+    The **authorizationExpiredDisclaimer** function in ``@ufe/base`` module is responsible for dispatching the event ``ufe-authorization-expired-disclaimer``.<br/> 
+    This event notifies the Unified Frontend and the end-user that the session has expired.
+
+    <br />
+
+    ### Code Example
+
+    In the example below we show how to notify about session expiration.
+
+    ```js
+    import { authorizationExpiredDisclaimer } from '@ufe/base';
+
+    // Notify session expiration
+    authorizationExpiredDisclaimer();
+    ```
+
+    <br />
+    <br />
+
+    ## Changing Authentication Tokens
+
+    The **changeAuthenticationTokens** function in ``@ufe/base`` module is responsible for dispatching the event ``ufe-change-auth-tokens``.<br/> 
+    This event updates the authentication tokens used in the Unified Frontend.<br/> 
+    If the Http Client is being used it will automatically update the Tokens when either the **accessToken** expires and the **refreshToken** is valid,
+    or when the user is kicked to the login page (by expired tokens) and a successfull login occurs.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Default</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**accessToken***</td>
+                <td> The access token used across all HTTP client requests. </td>
+                <td> ```string``` </td>
+                <td> - </td>
+            </tr>
+            <tr>
+                <td>**refreshToken***</td>
+                <td> The refresh token used when the access token expires. </td>
+                <td> ```string``` </td>
+                <td> - </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br />
+
+    ### Code Example
+
+    In the example below we show how to change authentication tokens.
+
+    ```js
+    import { changeAuthenticationTokens } from '@ufe/base';
+
+    // To change the authentication tokens
+    changeAuthenticationTokens('newAccessToken', 'newRefreshToken');
+    ```
+
+    <br />
+    <br />
+
+    ## Destroying Tokens on Session Expiration
+
+    The **destroyTokensSessionExpired** function in ``@ufe/base`` module is responsible for dispatching the event ``ufe-destroy-tokens-session-expired``.<br/> 
+    This event destroys the current session tokens.
+
+    <br />
+
+    ### Code Example
+
+    In the example below we show how to destroy session tokens on session expiration.
+
+    ```js
+    import { destroyTokensSessionExpired } from '@ufe/base';
+
+    // To destroy session tokens
+    destroyTokensSessionExpired();
+    ```
+
+    <br />
+    <br />
+
+    ## Logging Out
+
+    The **logoutUfe** function in ``@ufe/base`` module is responsible for dispatching the event ``ufe-logout-ufe`` or ``ufe-logout-ufe-force``.<br/> 
+    This event logs the user out of the Unified Frontend. Using a forced logout will cause the application to abruptly logout without having in consideration if there are applications with work to be saved.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Default</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**forced**</td>
+                <td> Indicates whether the logout should be forced (`true`) or not (`false`). </td>
+                <td> ```boolean``` </td>
+                <td> ```false``` </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br />
+
+    ### Code Example
+
+    In the example below we show how to log out.
+
+    ```js
+    import { logoutUfe } from '@ufe/base';
+
+    // To log out
+    logoutUfe(false);
+
+    // To force log out
+    logoutUfe(true);
+    ```
+
+    <br />
+    <br />
+
+    ## Adding User Preferences
+
+    The **addUserPreferences** function in ``@ufe/base`` module is responsible for dispatching the event ``ufe-add-user-preferences``.<br/> 
+    This event adds a new user preference for the current logged user.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Default</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**name***</td>
+                <td> Name of the user preference. </td>
+                <td> ```string``` </td>
+                <td> - </td>
+            </tr>
+            <tr>
+                <td>**description***</td>
+                <td> Description of the user preference. </td>
+                <td> ```string``` </td>
+                <td> - </td>
+            </tr>
+            <tr>
+                <td>**value***</td>
+                <td> Value of the user preference. </td>
+                <td> ```any``` </td>
+                <td> - </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br />
+
+    ### Code Example
+
+    In the example below we show how to add a user preference.
+
+    ```js
+    import { addUserPreferences } from '@ufe/base';
+
+    // To add a user preference
+    addUserPreferences('dateFormat', 'User date format preference', 'MM/DD/YYYY');
+    ```
+
+    <br />
+    <br />
+
+    ## Removing User Preferences
+
+    The **removeUserPreferences** function in ``@ufe/base`` module is responsible for dispatching the event ``ufe-remove-user-preferences``.<br/> 
+    This event removes a user preference from the current logged user.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Default</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**preferenceId***</td>
+                <td> ID of the user preference to remove. </td>
+                <td> ```number``` </td>
+                <td> - </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br />
+
+    ### Code Example
+
+    In the example below we show how to remove a user preference.
+
+    ```js
+    import { removeUserPreferences } from '@ufe/base';
+
+    // To remove a user preference
+    removeUserPreferences(3);
+    ```
+
+    <br />
+    <br />
+
+    ## Updating User Preferences
+
+    The **updateUserPreferences** function in ``@ufe/base`` module is responsible for dispatching the event ``ufe-update-user-preferences``.<br/> 
+    This event updates a user preference for the current logged user.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Default</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**preference***</td>
+                <td> The user preference to update. </td>
+                <td> ```any``` </td>
+                <td> - </td>
+            </tr>
+            <tr>
+                <td>**preferenceId***</td>
+                <td> ID of the user preference to update. </td>
+                <td> ```number``` </td>
+                <td> - </td>
+            </tr>
+            <tr>
+                <td>**propertyId***</td>
+                <td> ID of the property to update. </td>
+                <td> ```number``` </td>
+                <td> - </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br />
+
+    ### Code Example
+
+    In the example below we show how to update a user preference.
+
+    ```js
+    import { updateUserPreferences } from '@ufe/base';
+
+    // To update a user preference
+    updateUserPreferences({ dateFormat: 'DD/MM/YYYY' }, 3, 12);
+    ```
+
+    <br />
+    <br />
+
+    ## Setting Entitlements
+
+    The **setEntitlements** function in ``@ufe/base`` module is responsible for dispatching the event ``ufe-set-entitlements``.<br/> 
+    This event updates the entitlements that are currently set in the Unified Frontend completely overriding the current entitlements being used.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Default</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**entitlements***</td>
+                <td> List of entitlements. </td>
+                <td> ```Array<string>``` </td>
+                <td> [] </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br />
+
+    ### Code Example
+
+    In the example below we show how to set entitlements.
+
+    ```js
+    import { setEntitlements } from '@ufe/base';
+
+    // To set entitlements
+    setEntitlements([SETTINGS_CHANGE_LANGUAGE, SETTINGS_EDIT_USER_INFO]);
+    ```
+
+    <br />
+    <br />
+
+    ## Adding Entitlements
+
+    The **addEntitlements** function in ``@ufe/base`` module is responsible for dispatching the event ``ufe-add-entitlements``.<br/> 
+    This event adds new entitlements to the list of current entitlements of the session. 
+    If an entitlement is already present in the list of entitlements of the current user, it will be ignored.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Default</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**entitlement***</td>
+                <td> The entitlement to add. </td>
+                <td> ```Array<string> | string``` </td>
+                <td> [] </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br />
+
+    ### Code Example
+
+    In the example below we show how to add an entitlement.
+
+    ```js
+    import { addEntitlements } from '@ufe/base';
+
+    // To add an entitlement
+    addEntitlements(OPEN_JOURNEY);
+    ```
+
+    <br />
+    <br />
+
+    ## Removing Entitlements
+
+    The **removeEntitlements** function in ``@ufe/base`` module is responsible for dispatching the event ``ufe-remove-entitlements``.<br/> 
+    This event removes entitlements from the list of current entitlements of the session and ignores the rest.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Default</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**entitlement***</td>
+                <td> The entitlement to remove. </td>
+                <td> ```Array<string> | string``` </td>
+                <td> [] </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br />
+
+    ### Code Example
+
+    In the example below we show how to remove an entitlement.
+
+    ```js
+    import { removeEntitlements } from '@ufe/base';
+
+    // To remove an entitlement
+    removeEntitlements(SETTINGS_CHANGE_LANGUAGE);
+    ```
+
+    <br />
+    <br />
+
+    ## Updating User Information
+
+    The **updateUserInfo** function in ``@ufe/base`` module is responsible for dispatching the event ``ufe-update-user-information``.<br/> 
+    This event updates the user information for the current logged user.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Default</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**user***</td>
+                <td> The user information to update. </td>
+                <td> ```any``` </td>
+                <td> - </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br />
+
+    ### Code Example
+
+    In the example below we show how to update user information.
+
+    ```js
+    import { updateUserInfo } from '@ufe/base';
+
+    // To update user information
+    updateUserInfo({ firstName: 'John', email: 'john2000@example.com' });
+    ```
+
+    <br/>
+    <br/>
+
+    ## Set Private Mode
+    
+    The **setPrivateMode** function in ``@ufe/base`` module is responsible for dispatching the event ``ufe-set-private-mode``.<br/>
+    This event is responsible for updating the state of the private mode in the Unified Frontend, activating or deactivating it.
+
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Default</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**value***</td>
+                <td> The boolean value stating if the private mode should be active or inactive. </td>
+                <td> ```boolean``` </td>
+                <td> - </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br />
+
+    ### Code Example
+
+    In the example below we show how to set private mode.
+
+    ```js
+    import { setPrivateMode } from '@ufe/base';
+
+    function MyComponent(){
+
+        ...
+
+        const myFunction = () => {
+            setPrivateMode(true);
+        }
+        
+        ...
+    }
+    ```
+
+
+
+
+</div>
+
+<style>
+  {`
+    li::marker{
+        color: #BE63FF;
+    }
+    a{
+        color: #BE63FF !important;
+        font-weight: bold;
+    }
+    a:hover{
+        color: #7F42AB !important;
+    }
+    table{
+        width: 100%;
+    }
+    thead tr{
+        border: none !important;
+        background: #fff;
+    }
+    thead th{
+        border: none !important;
+        color: #6c6c6c !important;
+    }
+    tbody{
+        box-shadow: 1px 1px 6px 1px #dedede;
+    }
+    tbody td{
+        text-align: center;
+        border: none !important;
+        background: #fff;
+        height: 30px;
+        color: #333;
+    }
+    .sb-icon {
+        background: #FBF6FF;
+        height: 60px;
+        width: 60px;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .sb-icon img {
+        width: 32px;
+    }
+ `}
+</style>

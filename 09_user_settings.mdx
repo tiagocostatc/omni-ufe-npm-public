@@ -1,0 +1,175 @@
+import { Meta } from "@storybook/blocks";
+import EventsIcon from "./../../assets/events-icon.svg";
+
+<Meta title="@UFE-Base/Events/User Settings" />
+
+<div>
+    <div className="sb-icon">
+        <img
+            src={EventsIcon}
+            alt="Events icon"/>
+    </div>
+
+    # User Settings Events
+    
+    **User Settings events** are responsible for managing the state of the overlay and quick actions, as well as refreshing the session timeout.
+    This document presents information for each of the events offered by ```@ufe/base``` module, as well as examples of how they can be used.
+
+    The events described in this document are:
+
+    - [Set Overlay Open](#set-overlay-open)
+    - [Set Quick Action Open](#set-quick-action-open)
+    - [Refresh Session Timeout](#refresh-session-timeout)
+
+    <br/>
+    <br/>
+
+    ## Set Overlay Open
+
+    The **setOverlayOpen** function in ```@ufe/base``` module is responsible for dispatching the event **```user-settings-set-overlay-open```**.
+    This event is responsible for changing the user settings overlay state.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**value***</td>
+                <td>User settings overlay state to be set.</td>
+                <td> ```boolean``` </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br/>
+
+    ### Code example
+
+    In the example below we show how to change the ufe settings overlay state.
+
+    ```javascript
+    import { setOverlayOpen } from '@ufe/base';
+
+    export default function myFunction(){
+        setOverlayOpen(true);
+    }
+    ```
+
+    <br/>
+    <br/>
+
+    ## Set Quick Action Open
+
+    The **setQuickActionOpen** function in ```@ufe/base``` module is responsible for dispatching the event **```user-settings-set-quick-action-open```**.
+    This event is responsible for changing the user settings quick action state.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**value***</td>
+                <td>User settings quick action state to be set.</td>
+                <td> ```boolean``` </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br/>
+
+    ### Code example
+
+    In the example below we show how to change the ufe settings quick action state.
+
+    ```javascript
+    import { setQuickActionOpen } from '@ufe/base';
+
+    export default function myFunction(){
+        setQuickActionOpen(true);
+    }
+    ```
+
+    <br/>
+    <br/>
+
+    ## Refresh Session Timeout
+
+    The **refreshSessionTimeout** function in ```@ufe/base``` module is responsible for dispatching the event **```ufe-refresh-session-timeout```**.
+    This event is responsible for refreshing ufe session timeout on user settings.
+
+    <br/>
+
+    ### Code example
+
+    In the example below we show how to refresh ufe session timeout.
+
+    ```javascript
+    import { refreshSessionTimeout } from '@ufe/base';
+
+    export default function myFunction(){
+        refreshSessionTimeout();
+    }
+    ```
+
+
+</div>
+<style>
+{`
+    li::marker{
+        color: #BE63FF;
+    }
+    a{
+        color: #BE63FF !important;
+        font-weight: bold;
+    }
+    a:hover{
+        color: #7F42AB !important;
+    }
+    table{
+        width: 100%;
+    }
+    thead tr{
+        border: none !important;
+        background: #fff;
+    }
+    thead th{
+        border: none !important;
+        color: #6c6c6c !important;
+    }
+    tbody{
+        box-shadow: 1px 1px 6px 1px #dedede;
+    }
+    tbody td{
+        text-align: center;
+        border: none !important;
+        background: #fff;
+        height: 30px;
+        color: #333;
+    }
+    .sb-icon {
+        background: #FBF6FF;
+        height: 60px;
+        width: 60px;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .sb-icon img {
+        width: 32px;
+    }
+ `}
+</style>

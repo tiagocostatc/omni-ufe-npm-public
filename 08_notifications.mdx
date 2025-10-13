@@ -1,0 +1,221 @@
+import { Meta } from "@storybook/blocks";
+import EventsIcon from "./../../assets/events-icon.svg";
+
+<Meta title="@UFE-Base/Events/Notifications" />
+
+<div>
+    <div className="sb-icon">
+        <img
+            src={EventsIcon}
+            alt="Events icon"/>
+    </div>
+
+    # Notifications Events    
+
+    **Notification events** are responsible for dispatch notifications in ufe. 
+    These notifications can be just alerts or can be registered in the notification center.
+    This document presents information for each of the events offered by ```@ufe/base``` module, as well as examples of how they can be used.
+
+    The events described in this document are:
+
+     - [Dispatch Notification](#dispatch-notification);
+     - [Dispatch Complex Notification](#dispatch-complex-notification);
+
+
+    <br />
+    <br />
+
+    ## Dispatch Notification
+
+    The **dispatchNotification** function in ```@ufe/base``` module is responsible for dispatching the event **```dispatch-notification-event```**.
+    This event is responsible for sending a simple alert notification to the end user.
+    This type of notification is usually not persisted in the database and has a contextual logic to the application that dispatches it.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**message***</td>
+                <td>The message of the notification. </td>
+                <td> ```string``` </td>
+            </tr>
+            <tr>
+                <td>**severity***</td>
+                <td>The type/severity of the notification. </td>
+                <td> ```success``` | ```error``` | ```warning``` | ```info``` </td>
+            </tr>
+            <tr>
+                <td>**timeout**</td>
+                <td>The timeout for the notification to disappear. If undefined it will be persistent until the end user dismisses it manually. </td>
+                <td> ```number``` </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br/>
+
+    ### Code example
+
+    In the example below we show how to send a simple error notification.
+
+    ```javascript
+    import { dispatchNotification } from '@ufe/base';
+
+    export default function myFunction(){
+        const message="Message test";
+        const severity="error";
+
+        dispatchNotification(message, severity);
+    }
+    ```
+    <br/>
+    <br/>
+    <br/>
+
+    ## Dispatch Complex Notification
+
+    The **dispatchComplexNotification** function in ```@ufe/base``` module is responsible for dispatching the event **```dispatch-complex-notification-event```**.
+    This event is responsible for sending a complex notification to the end user.
+    This type of notification is persisted in the Notification Center and can be re-read.
+
+    The function has the following parameters: 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**notification***</td>
+                <td>The body of the complex notification object. </td>
+                <td> ```ComplexNotification``` </td>
+            </tr>
+        </tbody>
+    </table>
+
+    The parameter type **```ComplexNotification```** is composed of the following properties:
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**title***</td>
+                <td>Notification title. </td>
+                <td> ```string``` </td>
+            </tr>
+            <tr>
+                <td>**body***</td>
+                <td>Notification message. </td>
+                <td> ```string``` </td>
+            </tr>
+            <tr>
+                <td>**specialBody**</td>
+                <td>Notification special body. </td>
+                <td> ```string``` </td>
+            </tr>
+            <tr>
+                <td>**categories***</td>
+                <td>Notification categories id list. </td>
+                <td> ```number[]``` </td>
+            </tr>
+            <tr>
+                <td>**targets***</td>
+                <td>Notification user targets. </td>
+                <td> ```any``` </td>
+            </tr>
+            <tr>
+                <td>**primaryAction**</td>
+                <td>Notification actions, for example openJourney. </td>
+                <td> ```string``` </td>
+            </tr>
+            <tr>
+                <td>**createdAt**</td>
+                <td>Notification creation date. </td>
+                <td> ```any``` </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br/>
+
+    ### Code example
+
+    In the example below we show how to send a simple error notification.
+
+    ```javascript
+    import { dispatchComplexNotification } from '@ufe/base';
+
+    export default function myFunction(){
+        const notifications = {
+            title: 'Notification Sample',
+            body: 'This is a sample of a notifications',
+            categories: [1],
+            targets: [{ "userId": "1" }]
+        } 
+        dispatchComplexNotification(notifications);
+    }
+    ```
+</div>
+<style>
+{`
+    a{
+        color: #BE63FF !important;
+        font-weight: bold;
+    }
+    a:hover{
+        color: #7F42AB !important;
+    }
+    li::marker{
+        color: #BE63FF;
+    }
+    table{
+        width: 100%;
+    }
+    thead tr{
+        border: none !important;
+        background: #fff;
+    }
+    thead th{
+        border: none !important;
+        color: #6c6c6c !important;
+    }
+    tbody{
+        box-shadow: 1px 1px 6px 1px #dedede;
+    }
+    tbody td{
+        text-align: center;
+        border: none !important;
+        background: #fff;
+        height: 30px;
+        color: #333;
+    }
+    .sb-icon {
+        background: #FBF6FF;
+        height: 60px;
+        width: 60px;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .sb-icon img {
+        width: 32px;
+    }
+ `}
+</style>
