@@ -1,0 +1,233 @@
+import { Meta, Unstyled } from '@storybook/blocks';
+import CustomDialogSamples from './CustomDialogSamples';
+
+<Meta title="@uilib-components/Components/Molecules/Dialog/Overview" />
+
+# Dialog
+
+The **O2 Dialog** is a specific instance of the MUI Dialog component. 
+This instance already contains some abstractions over the default MUI Material in which the UI is already defined by status.
+
+In the ```@ui-lib-components``` library, the **O2 Dialog** offers the following variants:
+
+<br/>
+
+<CustomDialogSamples />
+
+<br/>
+<br/>
+<br/>
+
+## Code 
+
+```jsx
+import { Typography, Stack, Grid, Button } from '@mui/material';
+import React from 'react';
+import { O2Dialog } from '@uilib/components';
+
+export default function CustomDialogSamples() {
+
+    const defaultContent =
+        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.';
+
+    const [open, setOpen] = React.useState(false);
+    const [successOpen, setSuccessOpen] = React.useState(false);
+    const [warningOpen, setWarningOpen] = React.useState(false);
+    const [errorOpen, setErrorOpen] = React.useState(false);
+    const [infoOpen, setInfoOpen] = React.useState(false);
+    const [helpOpen, setHelpOpen] = React.useState(false);
+
+    /**
+     * @function handleClickOpen
+     */
+    const handleClickOpen = (level?: string) => {
+        switch (level) {
+            case 'success':
+                setSuccessOpen(true);
+                break;
+            case 'warning':
+                setWarningOpen(true);
+                break;
+            case 'error':
+                setErrorOpen(true);
+                break;
+            case 'info':
+                setInfoOpen(true);
+                break;
+            case 'help':
+                setHelpOpen(true);
+                break;
+            default:
+                setOpen(true);
+                break;
+        }
+    };
+
+    /**
+     * @function handleClose
+     */
+    const handleClose = () => {
+        setOpen(false);
+    };
+    
+    return (
+        <Stack spacing={4}>
+            <Typography
+                variant="h5"
+                fontWeight="bold">
+                Custom dialog
+            </Typography>
+            <Grid container spacing={1}>
+                <Button variant="outlined" onClick={() => handleClickOpen()}>
+                    Open custom dialog
+                </Button>
+                <O2Dialog
+                    title="Test title"
+                    content={defaultContent}
+                    fullScreen={false}
+                    open={open}
+                    handleClose={handleClose}
+                    onCancelClick={handleClose}
+                    actions={
+                        <>
+                            <Button onClick={handleClose} variant="text">
+                                Cancel
+                            </Button>
+                            <Button variant="contained" color="primary" onClick={handleClose}>
+                                Primary Action
+                            </Button>
+                        </>
+                    }
+                />
+            </Grid>
+            <br />
+            <Typography variant="h5" fontWeight="bold">
+                Custom dialog with levels
+            </Typography>
+            <Grid container spacing={1} rowGap={2} style={{ display: 'flex', flexDirection: 'row' }}>
+                <Grid item xs={3}>
+                    <Button variant="outlined" onClick={() => handleClickOpen('success')}>
+                        Open success dialog
+                    </Button>
+                    <O2Dialog
+                        level="success"
+                        title="Test title"
+                        content={defaultContent}
+                        fullScreen={false}
+                        open={successOpen}
+                        handleClose={() => { setSuccessOpen(false) }}
+                        onCancelClick={() => { setSuccessOpen(false) }}
+                        actions={
+                            <>
+                                <Button onClick={() => { setSuccessOpen(false) }} variant="text">
+                                    Cancel
+                                </Button>
+                                <Button variant="contained" color="primary" onClick={() => { setSuccessOpen(false) }}>
+                                    Primary Action
+                                </Button>
+                            </>
+                        }
+                    />
+                </Grid>
+                <Grid item xs={3}>
+                    <Button variant="outlined" onClick={() => handleClickOpen('warning')}>
+                        Open warning dialog
+                    </Button>
+                    <O2Dialog
+                        level="warning"
+                        title="Test title"
+                        content={defaultContent}
+                        fullScreen={false}
+                        open={warningOpen}
+                        handleClose={() => { setWarningOpen(false) }}
+                        onCancelClick={() => { setWarningOpen(false) }}
+                        actions={
+                            <>
+                                <Button onClick={() => { setWarningOpen(false) }} variant="text">
+                                    Cancel
+                                </Button>
+                                <Button variant="contained" color="primary" onClick={() => { setWarningOpen(false) }}>
+                                    Primary Action
+                                </Button>
+                            </>
+                        }
+                    />
+                </Grid>
+                <Grid item xs={3}>
+                    <Button variant="outlined" onClick={() => handleClickOpen('error')}>
+                        Open error dialog
+                    </Button>
+                    <O2Dialog
+                        level="error"
+                        title="Test title"
+                        content={defaultContent}
+                        fullScreen={false}
+                        open={errorOpen}
+                        handleClose={() => { setErrorOpen(false) }}
+                        onCancelClick={() => { setErrorOpen(false) }}
+                        actions={
+                            <>
+                                <Button onClick={() => { setErrorOpen(false) }} variant="text">
+                                    Cancel
+                                </Button>
+                                <Button variant="contained" color="primary" onClick={() => { setErrorOpen(false) }}>
+                                    Primary Action
+                                </Button>
+                            </>
+                        }
+                    />
+                </Grid>
+                <Grid item xs={3}>
+                    <Button variant="outlined" onClick={() => handleClickOpen('info')}>
+                        Open info dialog
+                    </Button>
+                    <O2Dialog
+                        level="info"
+                        title="Test title"
+                        content={defaultContent}
+                        fullScreen={false}
+                        open={infoOpen}
+                        handleClose={() => { setInfoOpen(false) }}
+                        onCancelClick={() => { setInfoOpen(false) }}
+                        actions={
+                            <>
+                                <Button onClick={() => { setInfoOpen(false) }} variant="text">
+                                    Cancel
+                                </Button>
+                                <Button variant="contained" color="primary" onClick={() => { setInfoOpen(false) }}>
+                                    Primary Action
+                                </Button>
+                            </>
+                        }
+                    />
+                </Grid>
+                <Grid item xs={3}>
+                    <Button variant="outlined" onClick={() => handleClickOpen('help')}>
+                        Open help dialog
+                    </Button>
+                    <O2Dialog
+                        level="help"
+                        title="Test title"
+                        content={defaultContent}
+                        fullScreen={false}
+                        open={helpOpen}
+                        handleClose={() => { setHelpOpen(false)}}
+                        onCancelClick={() => { setHelpOpen(false)}}
+                        actions={
+                            <>
+                                <Button onClick={() => { setHelpOpen(false)}} variant="text">
+                                    Cancel
+                                </Button>
+                                <Button variant="contained" color="primary" onClick={() => { setHelpOpen(false)}}>
+                                    Primary Action
+                                </Button>
+                            </>
+                        }
+                    />
+                </Grid>
+            </Grid>
+        </Stack>
+    );
+}
+
+```

@@ -1,0 +1,113 @@
+import { Meta } from '@storybook/blocks';
+import NavigationDrawerSamples from './NavigationDrawerSamples';
+
+<Meta title="@uilib-components/Components/Organisms/Drawers/NavigationDrawer/Overview" />
+
+# Navigation Drawer
+
+The **Navigation Drawer** is a vertical navigation component designed to occupy the left side of your application. It features an icon bar that always remains visible and occupies space in the layout, with an optional content panel that appears adjacent to the icons.
+
+## Key Features
+
+- **Icon Bar**: Always visible on the left, with configurable width (default: 64px)
+- **Top & Bottom Items**: Organize navigation items into two groups - primary actions at the top and secondary actions at the bottom
+- **Two Item Types**:
+  - **Content Items**: Display a panel with custom content when clicked
+  - **Action Items**: Execute a function directly when clicked (remain selected)
+- **Backdrop**: Optional backdrop overlay when content is open (default: visible)
+- **Click Away**: Optional - control whether clicking outside closes the content panel (default: enabled)
+- **Rounded Corners**: Content panel has 16px border radius on the right side
+
+<NavigationDrawerSamples/>
+
+<br/>
+
+## Usage
+
+### Basic Example
+
+```jsx
+import React, { useState } from 'react';
+import { NavigationDrawer } from '@uilib/components';
+import { Calendar, Account, Logout } from '@uilib/icons';
+
+export default function Example() {
+    const [selectedItem, setSelectedItem] = useState<string | null>(null);
+
+    return (
+        <Box sx={{ display: 'flex', height: '100vh' }}>
+            <NavigationDrawer
+                topItems={[
+                    {
+                        icon: <Calendar />,
+                        title: 'Calendar',
+                        content: <div>Calendar content here</div>,
+                    },
+                    {
+                        icon: <Account />,
+                        title: 'Account',
+                        content: <div>Account settings here</div>,
+                    },
+                ]}
+                bottomItems={[
+                    {
+                        icon: <Logout />,
+                        title: 'Logout',
+                        onAction: () => console.log('Logging out...'),
+                    },
+                ]}
+                selectedItem={selectedItem}
+                onItemSelect={setSelectedItem}
+            />
+            <Box sx={{ flex: 1, padding: 3 }}>
+                {/* Your main content here */}
+            </Box>
+        </Box>
+    );
+}
+```
+
+### With Custom Settings
+
+```jsx
+<NavigationDrawer
+    topItems={[...]}
+    bottomItems={[...]}
+    hideBackdrop={true}
+    disableClickAwayListener={true}
+    contentWidth={400}
+    iconBarWidth={80}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `topItems` | `NavigationItem[]` | **required** | Items displayed at the top of the icon bar |
+| `bottomItems` | `NavigationItem[]` | `[]` | Items displayed at the bottom of the icon bar |
+| `selectedItem` | `string \| null` | `undefined` | Currently selected item ID (format: 'top-0', 'bottom-1') |
+| `onItemSelect` | `(itemId: string \| null) => void` | `undefined` | Callback when an item is selected |
+| `contentWidth` | `number` | `300` | Width of the content panel in pixels |
+| `iconBarWidth` | `number` | `64` | Width of the icon bar in pixels |
+| `hideBackdrop` | `boolean` | `false` | If true, backdrop is not displayed when content is open |
+| `disableClickAwayListener` | `boolean` | `false` | If true, clicking outside won't close the content panel |
+| `className` | `string` | `undefined` | Custom CSS class for the container |
+
+## NavigationItem Type
+
+```typescript
+type NavigationItem = {
+    icon: ReactElement;        // The icon component
+    title: string;             // Title/tooltip text
+    content?: ReactNode;       // Content to display (for expandable items)
+    onAction?: () => void;     // Action to execute (for action items)
+    disabled?: boolean;        // If true, the item is disabled
+}
+```
+
+## Item ID Format
+
+Items are automatically assigned IDs based on their position:
+- Top items: `'top-0'`, `'top-1'`, `'top-2'`, etc.
+- Bottom items: `'bottom-0'`, `'bottom-1'`, `'bottom-2'`, etc.

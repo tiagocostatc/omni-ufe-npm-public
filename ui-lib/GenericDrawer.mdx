@@ -1,0 +1,81 @@
+import { Meta } from '@storybook/blocks';
+import GenericDrawerSamples from './GenericDrawerSamples';
+
+<Meta title="@uilib-components/Components/Organisms/Drawers/GenericDrawer/Overview" />
+
+# Generic Drawer
+
+The **Generic Drawer** is a specific instance of the MUI Drawer component. 
+This instance already contains some abstractions over the default MUI Material in which the UI is already defined by status.
+
+In the ```@ui-lib-components``` library, the **Generic Drawer** offers the following variants:
+
+<br/>
+
+<GenericDrawerSamples />
+
+<br/>
+<br/>
+<br/>
+
+## Code
+
+```jsx
+import { Grid, Button, Box } from '@mui/material';
+import React, { useState } from 'react';
+import { GenericDrawer } from '@uilib/components';
+
+/**
+ * @component GenericDrawerSamples
+ */
+export default function GenericDrawerSamples() {
+
+    const [leftDrawerOpen, setLeftDrawerOpen] = useState(false);
+    const [rightDrawerOpen, setRightDrawerOpen] = useState(false);
+
+    return (
+        <Grid container spacing={4}>
+            <Grid item xs={3}>
+                <Button variant='outlined' onClick={() => setLeftDrawerOpen(true)}>Open drawer left</Button>
+                <GenericDrawer
+                    title="Title"
+                    open={leftDrawerOpen}
+                    anchor="left"
+                    handleClose={() => setLeftDrawerOpen(false)}
+                    actions={
+                        <Box sx={{ width: '100%', display: 'flex', gap: '24px', justifyContent: 'flex-end' }}>
+                            {
+                                //@ts-ignore
+                                <Button variant="textblack" children="Secondary action" />
+                            }
+                            <Button variant="contained" children="Primary action" />
+                        </Box>
+                    }
+                >
+                    <>Content</>
+                </GenericDrawer>
+            </Grid>
+            <Grid item xs={3}>
+                <Button variant='outlined' onClick={() => setRightDrawerOpen(true)}>Open drawer right</Button>
+                <GenericDrawer
+                    title="Title"
+                    open={rightDrawerOpen}
+                    anchor="right"
+                    handleClose={() => setRightDrawerOpen(false)}
+                    actions={
+                        <Box sx={{ width: '100%', display: 'flex', gap: '24px', justifyContent: 'flex-end' }}>
+                            {
+                                //@ts-ignore
+                                <Button variant="textblack" children="Secondary action" />
+                            }
+                            <Button variant="contained" children="Primary action" />
+                        </Box>
+                    }
+                >
+                    <>Content</>
+                </GenericDrawer>
+            </Grid>
+        </Grid>
+    );
+}
+```

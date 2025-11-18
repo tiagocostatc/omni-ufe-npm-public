@@ -1,0 +1,65 @@
+import { Meta } from '@storybook/blocks';
+import ToolbarDrawerSamples from './ToolbarDrawerSamples';
+
+<Meta title="@uilib-components/Components/Organisms/Drawers/ToolbarDrawer/Overview" />
+
+# Toolbar Drawer
+
+The **Toolbar Drawer** is a specific instance of the MUI Drawer component. This instance already contains some abstractions over the default MUI Material in which the UI is already defined by status.
+
+<ToolbarDrawerSamples/>
+
+<br/>
+
+## Code
+
+```tsx
+import { Grid, Box } from '@mui/material';
+import React, { useState } from 'react';
+import { ToolbarDrawer } from '@uilib/components';
+import { Calendar, Account, Birthday, Notes } from '@uilib/icons';
+
+/**
+ * @function CalendarContent
+ */
+const CalendarContent = () => {
+    return <Box sx={{ backgroundColor: 'primary.light', flex: 1, margin: '16px 0px', height: '160px' }}>CalendarContent</Box>;
+};
+
+/**
+ * @function AccountContent
+ */
+const AccountContent = () => {
+    return <Box sx={{ backgroundColor: 'primary.light', flex: 1, margin: '16px 0px', height: '160px' }}>AccountContent</Box>;
+};
+
+/**
+ * @function ToolbarDrawerSamples
+ */
+export default function ToolbarDrawerSamples() {
+    
+    const [selectedToolbarItem, setSelectedToolbarItem] = useState<number | null>(null);
+
+    return (
+        <Grid container spacing={1}>
+            <Grid item xs={12}>
+                <ToolbarDrawer
+                    toolbarItems={[
+                        { icon: <Calendar />, title: 'Calendar' },
+                        { icon: <Account />, title: 'Account' },
+                        { icon: <Birthday />, title: 'Birthday' },
+                        { icon: <Notes />, title: 'Notes' },
+                    ]}
+                    selectedToolbarItem={selectedToolbarItem}
+                    setSelectedToolbarItem={setSelectedToolbarItem}
+                >
+                    <>
+                        {selectedToolbarItem === 0 && <CalendarContent />}
+                        {selectedToolbarItem === 1 && <AccountContent />}
+                    </>
+                </ToolbarDrawer>
+            </Grid>
+        </Grid>
+    );
+}
+```

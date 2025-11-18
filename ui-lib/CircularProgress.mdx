@@ -1,0 +1,62 @@
+import { Meta } from '@storybook/blocks';
+import CircularProgressSamples from './CircularProgressSamples';
+
+<Meta title="@uilib-components/Components/Molecules/Circular Progress/Overview" />
+
+# Circular progress
+
+The **Circular progress** allows the users to know what is the current loading state.
+
+This component is custom to make it easier and more direct to use in comparison with MUI component.
+If you need to control additional props, please use the MUI component.
+
+<br/>
+
+<CircularProgressSamples />
+
+<br/>
+<br/>
+<br/>
+
+### Code 
+
+```jsx
+import { Button } from '@mui/material';
+import React from 'react';
+import { CircularProgress } from '@uilib/components';
+
+/**
+ * @component CircularProgressSamples
+ */
+export default function CircularProgressSamples() {
+    
+    const [progress, setProgress] = React.useState(10);
+
+    /**
+     * @function reset
+     */
+    function reset() {
+        setProgress(0);
+    }
+
+    React.useEffect(() => {
+        const timer = setInterval(() => {
+            setProgress(prevProgress => (prevProgress >= 100 ? 100 : prevProgress + 1));
+        }, 100);
+        return () => {
+            clearInterval(timer);
+        };
+    }, []);
+
+    return (
+        <>
+            <CircularProgress value={progress} message={'Loading...'} />
+            <Button onClick={reset} color="primary" variant="outlined">
+                Reset
+            </Button>
+        </>
+    );
+}
+```
+
+

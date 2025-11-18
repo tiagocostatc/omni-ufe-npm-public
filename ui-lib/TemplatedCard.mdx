@@ -1,0 +1,123 @@
+import { Meta } from '@storybook/blocks';
+import  TemplatedCardsamples from './TemplatedCardSamples';
+
+<Meta title="@uilib-components/Components/Organisms/TemplatedCard/Overview" />
+
+# Templated Card
+
+The **Template Card** is a subset of Cards already customized with a specific layout. It's possible to use the card with a title, subtitle, content, and actions.
+
+<br/>
+
+<TemplatedCardsamples/>
+
+<br/>
+<br/>
+<br/>
+
+### Code
+
+```jsx
+import { Typography, Grid, Box, Button, Avatar, IconButton } from '@mui/material';
+import React from 'react';
+import { TemplatedCard } from '@uilib/components';
+import { TrashO, ArrowRight } from '@uilib/icons';
+
+/**
+ * @component TemplatedCardSamples
+ */
+export default function TemplatedCardSamples() {
+    return (
+        <Grid container gap={16}>
+            <Grid item xs={5}>
+                <Typography
+                    style={{ marginBottom: '24px' }}
+                    variant='h5'
+                    fontWeight='bold'>
+                    Action
+                </Typography>
+                <TemplatedCard
+                    variant='action'
+                    title='Title'
+                    headerActions={[
+                        { id: 1, label: 'Copy' },
+                        { id: 2, label: 'Paste' },
+                    ]}
+                    handleHeaderActionClick={(id: any) => console.log('Clicked on action: ', id)}
+                    description='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+                    actions={
+                        <Box sx={{ display: 'flex', width: '100%' }}>
+                            <Button variant='outlined'>Optional action</Button>
+                            <Button sx={{ marginLeft: 'auto' }} variant='text'>
+                                View details
+                                <ArrowRight sx={{ fontSize: '16px', marginLeft: '6px' }} />
+                            </Button>
+                        </Box>
+                    }
+                />
+            </Grid>
+            <Grid item xs={5}>
+                <Typography
+                    style={{ marginBottom: '24px' }}
+                    variant='h5'
+                    fontWeight='bold'>
+                    Image
+                </Typography>
+                <TemplatedCard
+                    variant='image'
+                    title='Title'
+                    image='https://cdn.pixabay.com/photo/2023/05/21/17/48/field-8008987_1280.jpg'
+                    description='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+                    actions={
+                        <Box sx={{ display: 'flex', width: '100%' }}>
+                            <Button variant='outlined'>Optional action</Button>
+                            <Button sx={{ marginLeft: 'auto' }} variant='text'>
+                                View details
+                                <ArrowRight sx={{ fontSize: '16px', marginLeft: '6px' }} />
+                            </Button>
+                        </Box>
+                    }
+                />
+            </Grid>
+            <Grid item xs={5}>
+                <Typography
+                    style={{ marginBottom: '24px' }}
+                    variant='h5'
+                    fontWeight='bold'>
+                    News
+                </Typography>
+                <TemplatedCard
+                    variant='news'
+                    title='Title'
+                    avatar={<Avatar sx={{ width: '20px', height: '20px' }} alt='Remy Sharp' src='https://material-ui.com/static/images/avatar/1.jpg' />}
+                    avatarLabel='Source'
+                    description='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+                    actions={
+                        <Typography variant='body2' color='text.disabled'>
+                            Date
+                        </Typography>
+                    }
+                />
+            </Grid>
+            <Grid item xs={5}>
+                <Typography
+                    style={{ marginBottom: '24px' }}
+                    variant='h5'
+                    fontWeight='bold'>
+                    Icon
+                </Typography>
+                <TemplatedCard
+                    variant='icon'
+                    title='Title'
+                    description='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+                    headerActionIcon={
+                        <IconButton>
+                            <TrashO />
+                        </IconButton>
+                    }
+                />
+            </Grid>
+        </Grid>
+    );
+}
+```

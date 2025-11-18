@@ -1,0 +1,93 @@
+import { Meta } from '@storybook/blocks';
+import CustomSwitchSamples from './CustomSwitchSamples';
+
+<Meta title="@uilib-components/Components/Molecules/Switch/Overview" />
+
+# Switch
+
+The **Switch** component is a specific instance of the switch component with a different UI, where select button works with a transition and a specific text icon clientInformation.
+
+<br/>
+
+<CustomSwitchSamples />
+
+<br/>
+<br/>
+<br/>
+
+### Code 
+
+```jsx
+import { Typography, Stack, Grid } from '@mui/material';
+import React from 'react';
+import { Add } from '@uilib/icons';
+import { CustomSwitch } from '@uilib/components';
+
+const buttons = [
+    { name: 'test', label: 'Test', icon: Add },
+    { name: 'test2', label: 'Test 2', icon: Add },
+];
+
+const buttons2 = [
+    { name: 'test', label: 'Test', icon: Add },
+    { name: 'test2', label: 'Test 2', icon: Add },
+    { name: 'test3', label: 'Test 3', icon: Add },
+    { name: 'test4', label: 'Test 4', icon: Add },
+    { name: 'test5', label: 'Test 5', icon: Add },
+];
+
+const buttons3 = [
+    { name: 'test', label: 'Test' },
+    { name: 'test2', label: 'Test 2' },
+];
+
+/**
+ * @component CustomSwitchSamples
+ */
+export default function SteplessPaginationSamples() {
+    const [selected, setSelected] = React.useState('test');
+    const [selected2, setSelected2] = React.useState('test');
+    const [selected3, setSelected3] = React.useState('test');
+
+    const handleSelectItem = (selected: string) => {
+        setSelected(selected);
+    };
+    const handleSelectItem2 = (selected: string) => {
+        setSelected2(selected);
+    };
+    const handleSelectItem3 = (selected: string) => {
+        setSelected3(selected);
+    };
+
+    return (
+        <Stack spacing={4}>
+            <Typography
+                variant="h5"
+                fontWeight="bold">
+                Custom Switch with 2 options
+            </Typography>
+            <Grid container spacing={1}>
+                <Grid item xs={12}>
+                    <CustomSwitch disable={false} buttons={buttons} selected={selected} setSelectedItem={handleSelectItem} />
+                </Grid>
+            </Grid>
+            <Grid container spacing={1}>
+                <Grid item xs={12}>
+                    <CustomSwitch disable={false} buttons={buttons3} selected={selected3} setSelectedItem={handleSelectItem3} />
+                </Grid>
+            </Grid>
+            <Typography
+                style={{ marginTop: '40px' }}
+                variant="h5"
+                fontWeight="bold">
+                Custom Switch with more than 2 options
+            </Typography>
+            <Grid container spacing={1}>
+                <Grid item xs={12}>
+                    <CustomSwitch disable={false} buttons={buttons2} selected={selected2} setSelectedItem={handleSelectItem2} />
+                </Grid>
+            </Grid>
+        </Stack>
+    );
+}
+```

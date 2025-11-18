@@ -1,0 +1,67 @@
+import { Meta, Unstyled } from '@storybook/blocks';
+import SteplessPaginationSamples from './SteplessPaginationSamples';
+
+<Meta title="@uilib-components/Components/Molecules/SteplessPagination/Overview" />
+
+# Stepless Pagination
+
+The **Stepless Pagination** is a pagination component with a specific UI. 
+
+<br/>
+
+<SteplessPaginationSamples />
+
+<br/>
+<br/>
+<br/>
+
+### Code 
+
+```jsx
+import { Typography, Grid } from '@mui/material';
+import React from 'react';
+import { SteplessPagination } from '@uilib/components';
+
+/**
+ * @component SteplessPaginationSamples
+ */
+export default function SteplessPaginationSamples() {
+
+    const [page, setPage] = React.useState(2);
+
+    //@ts-ignore
+    const handleChangePage = (event: React.MouseEvent<HTMLButtonElement | HTMLDivElement, MouseEvent> | undefined, newPage: number) => {
+        setPage(newPage);
+    };
+    return (
+        <Grid container spacing={4}>
+            <Grid item xs={6}>
+                <Typography
+                    style={{ marginBottom: 20 }}
+                    variant="h5"
+                    fontWeight="bold">
+                    SteplessPagination with numbers
+                </Typography>
+                <SteplessPagination
+                    variant="numbers"
+                    page={page}
+                    count={10}
+                    handleChangePage={handleChangePage} />
+            </Grid>
+            <Grid item xs={6}>
+                <Typography
+                    style={{ marginBottom: 20 }}
+                    variant="h5"
+                    fontWeight="bold">
+                    SteplessPagination with dots
+                </Typography>
+                <SteplessPagination
+                    variant="dots"
+                    page={page}
+                    count={10}
+                    handleChangePage={handleChangePage} />
+            </Grid>
+        </Grid>
+    );
+}
+```

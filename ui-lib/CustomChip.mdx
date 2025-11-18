@@ -1,0 +1,119 @@
+import { Meta } from '@storybook/blocks';
+import ChipSamples from './ChipSamples';
+
+<Meta title="@uilib-components/Components/Atoms/Chips/Overview" />
+
+# Chips
+
+This section contains variations of Chips already pre built and ready to use.
+
+They are split into Base Chips a base custom style and iconography already applied, and the status chips, that have create a direct coorelation between the status of the chip and its UI.
+
+These chips were created to be easier to use, with less props and for more direct use Cases.
+
+<br/>
+
+<ChipSamples/>
+
+<br/>
+<br/>
+<br/>
+
+### Code 
+
+```jsx
+import { Typography, Grid } from '@mui/material';
+import React from 'react';
+import { BaseCustomChip, StatusCustomChip } from '@uilib/components';
+
+/**
+ * @component BaseCustomChipSamples 
+ */
+export default function BaseCustomChipSamples() {
+    
+    const [defaultTypeChipActive, setDefaultTypeChipActive] = React.useState(false);
+    const [greyTypeChipActive, setGreyTypeChipActive] = React.useState(false);
+
+    /**
+     * @function onChipClick
+     */
+    function onChipClick(name: 'default' | 'grey') {
+        if (name === 'default') {
+            setDefaultTypeChipActive(!defaultTypeChipActive);
+        } else {
+            setGreyTypeChipActive(!greyTypeChipActive);
+        }
+    }
+
+    /**
+     * @function onChipDelete
+     */
+    function onChipDelete() {
+        alert('delete selected!');
+    }
+
+    return (
+        <>
+            <Typography
+                sx={{ marginBottom: '20px' }}
+                variant='h5'
+                fontWeight='bold'>
+                Base Chips
+            </Typography>
+            <Grid container spacing={4}>
+                <Grid item xs={2}>
+                    <BaseCustomChip message='Hello World' type='default' onClick={() => onChipClick('default')} />
+                </Grid>
+                <Grid item xs={3}>
+                    <BaseCustomChip message='Hello World (deletable)' type='default' onDelete={onChipDelete} onClick={() => onChipClick('default')} />
+                </Grid>
+                <Grid item xs={2}>
+                    <BaseCustomChip message='Hello World' type='grey' onClick={() => onChipClick('grey')} />
+                </Grid>
+                <Grid item xs={3}>
+                    <BaseCustomChip message='Hello World (deletable)' type='grey' onDelete={onChipDelete} onClick={() => onChipClick('grey')} />
+                </Grid>
+            </Grid>
+            <Typography
+                sx={{ marginBottom: '20px', marginTop: '40px' }}
+                variant='h5'
+                fontWeight='bold'>
+                Status Chips
+            </Typography>
+            <Grid container spacing={4}>
+                <Grid item xs={2}>
+                    <StatusCustomChip message='Success' type='success' />
+                </Grid>
+                <Grid item xs={2}>
+                    <StatusCustomChip message='Success Outlined' type='success' variant='outlined' />
+                </Grid>
+                <Grid item xs={2}>
+                    <StatusCustomChip message='Pending' type='pending' />
+                </Grid>
+                <Grid item xs={2}>
+                    <StatusCustomChip message='Pending Outlined' type='pending' variant='outlined' />
+                </Grid>
+                <Grid item xs={2}>
+                    <StatusCustomChip message='Expired' type='expired' />
+                </Grid>
+                <Grid item xs={2}>
+                    <StatusCustomChip message='Expired Outlined' type='expired' variant='outlined' />
+                </Grid>
+                <Grid item xs={2}>
+                    <StatusCustomChip message='Error' type='error' />
+                </Grid>
+                <Grid item xs={2}>
+                    <StatusCustomChip message='Error Outlined' type='error' variant='outlined' />
+                </Grid>
+                <Grid item xs={2}>
+                    <StatusCustomChip message='Canceled' type='canceled' />
+                </Grid>
+                <Grid item xs={2}>
+                    <StatusCustomChip message='Canceled Outlined' type='canceled' variant='outlined' />
+                </Grid>
+            </Grid>
+        </>
+    );
+}
+```
+

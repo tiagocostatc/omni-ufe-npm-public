@@ -1,0 +1,140 @@
+import { Meta, Unstyled } from '@storybook/blocks';
+import SwiperSamples from './SwiperSamples';
+
+<Meta title="@uilib-components/Components/Molecules/Swiper/Overview" />
+
+# Swiper
+
+The **Swiper** component allows for you to show multiple different components/cards in a specific component, working as a slideshow slider. 
+
+<br/>
+
+<SwiperSamples />
+
+<br/>
+<br/>
+<br/>
+
+### Code
+
+```jsx
+import { FormLabel, FormGroup, TextField, FormControlLabel, Switch, Box, Theme } from '@mui/material';
+import React from 'react';
+import { Swiper } from '@uilib/components';
+
+/**
+ * @component SwiperSamples
+ */
+export default function SwiperSamples() {
+    
+    const [values, setValues] = React.useState({
+        slidesPerView: 1,
+        spaceBetween: 50,
+    });
+    
+    const [switches, setSwitches] = React.useState({
+        hasLoop: false,
+        hasPagination: false,
+        hasNavigation: false,
+        hasCenteredData: false,
+    });
+
+    const [currentElement, setCurrentElement] = React.useState<number>(0);
+
+    /**
+     * @function nextCard
+     */
+    const nextCard = (index: number) => {
+        setCurrentElement(index);
+    };
+
+    /**
+     * @function previousCard
+     */
+    const previousCard = (index: number) => {
+        setCurrentElement(index);
+    };
+
+    /**
+     * @function handleChangeSwitch
+     */
+    const handleChangeSwitch = (field: string) => (evt: React.ChangeEvent<HTMLInputElement>) => {
+        setSwitches({ ...switches, [field]: evt.target.checked });
+    };
+
+    /**
+     * @function handleChangeValue
+     */
+    const handleChangeValue = (field: string) => (evt: React.ChangeEvent<HTMLInputElement>) => {
+        setValues({ ...values, [field]: evt.target.value });
+    };
+
+    /**
+     * @function loadSwiperData
+     * Create swipper content
+     */
+    const loadSwiperData = () => {
+        let data = [];
+
+        for (let index = 0; index < 10; index++) {
+            data.push(<Box sx={(theme: Theme) => ({ background: theme.palette.primary.main, height: '84px', width: '194px' })} />);
+        }
+        return data;
+    };
+
+    return (
+        <>
+            <FormLabel component="legend">Values</FormLabel>
+            <FormGroup
+                row
+                sx={{
+                    display: 'flex',
+                    gap: '16px',
+                    margin: '16px 0px 44px 0px',
+                }}
+            >
+                <TextField type="number" label={'Data per view'} onChange={handleChangeValue('slidesPerView')} value={values.slidesPerView} />
+                <TextField label={'Space between data'} onChange={handleChangeValue('spaceBetween')} value={values.spaceBetween} />
+            </FormGroup>
+            <FormLabel component="legend">Settings</FormLabel>
+            <FormGroup
+                row
+                sx={{
+                    display: 'flex',
+                    gap: '16px',
+                    margin: '16px 0px 44px 0px',
+                }}
+            >
+                <FormControlLabel label="Loop" control={<Switch checked={switches.hasLoop} onChange={handleChangeSwitch('hasLoop')} value="hasLoop" color="primary" />} />
+                <FormControlLabel
+                    label="Pagination"
+                    control={<Switch checked={switches.hasPagination} onChange={handleChangeSwitch('hasPagination')} value="hasPagination" color="secondary" />}
+                />
+                <FormControlLabel
+                    label="Navigation"
+                    control={<Switch checked={switches.hasNavigation} onChange={handleChangeSwitch('hasNavigation')} value="hasNavigation" color="primary" />}
+                />
+                <FormControlLabel
+                    label="Centered Data"
+                    control={<Switch checked={switches.hasCenteredData} onChange={handleChangeSwitch('hasCenteredData')} value="hasCenteredData" color="secondary" />}
+                />
+            </FormGroup>
+            <Swiper
+                visibleElement={currentElement}
+                data={loadSwiperData()}
+                hasAutoPlay={false}
+                hasLoop={switches.hasLoop}
+                hasPagination={switches.hasPagination}
+                hasDynamicBullets={false}
+                hasCenteredData={switches.hasCenteredData}
+                hasAutoPlayDisabledOnInteraction={false}
+                transitionSpeed={2000}
+                slidesPerView={'auto'}
+                spaceBetween={0}
+                handleNext={nextCard}
+                handlePrevious={previousCard}
+            />
+        </>
+    );
+}
+```

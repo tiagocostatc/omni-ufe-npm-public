@@ -1,0 +1,61 @@
+import { Meta } from '@storybook/blocks';
+import CodingAreaSamples from './CodingAreaSamples';
+
+<Meta title="@uilib-components/Components/Atoms/Coding Area/Overview" />
+
+# Coding Area
+
+The **Coding Area** is a component that extends on a Text Field to become a full code editor Component.
+It should be used whenever there is a need to allow the user to edit Code.
+
+The following samples contain the Badge component with different configurations, already using some implemented style overrides.
+
+<br/>
+
+<CodingAreaSamples/>
+
+<br/>
+<br/>
+<br/>
+
+### Code
+
+```jsx
+import { Typography, Stack, Grid } from '@mui/material';
+import React, { useState } from 'react';
+import { CodingArea } from '@uilib/components';
+
+/**
+ * @componet CodingAreaSamples
+ */
+export default function CodingAreaSamples() {
+    
+    const [value, setValue] = useState('Initial value');
+    
+    return (
+        <Stack spacing={4}>
+            <Typography variant='h5' fontWeight='bold'>
+                CodingArea
+            </Typography>
+            <Grid container spacing={4}>
+                <Grid item xs={12}>
+                    <CodingArea value={value} handleChange={setValue} label='Label' maxHeight={200} placeholder='Code here' helperText='Comfort text' />
+                </Grid>
+                <Grid item xs={12}>
+                    <CodingArea value={value} handleChange={setValue} label='Label error' maxHeight={200} placeholder='Code here' helperText='Error message' error />
+                </Grid>
+                <Grid item xs={12}>
+                    <CodingArea value={value} handleChange={setValue} label='Label disabled' maxHeight={200} placeholder='Code here' helperText='Comfort text' disabled />
+                </Grid>
+                <Grid item xs={12}>
+                    <CodingArea value={value} handleChange={setValue} label='Label read only' maxHeight={200} placeholder='Code here' helperText='Comfort text' readOnly />
+                </Grid>
+                <Grid item xs={12}>
+                    <CodingArea value={value} handleChange={setValue} label='Label success' maxHeight={200} placeholder='Code here' helperText='Success message' success />
+                </Grid>
+            </Grid>
+        </Stack>
+    );
+}
+```
+

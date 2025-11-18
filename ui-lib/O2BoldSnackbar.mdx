@@ -1,0 +1,197 @@
+import { Meta, Unstyled } from '@storybook/blocks';
+import O2BoldSnackbarSample from "./O2BoldSnackbarSamples.tsx";
+
+<Meta title="@uilib-components/Components/Molecules/O2BoldSnackbar/Overview" />
+
+<style>
+{`
+    .sb-header a {
+        color: #BE63FF !important;
+        font-weight: bold;
+    }
+    .sb-header a:hover {
+        color: #7F42AB !important;
+    }
+`}
+</style>
+<div>
+
+    # O2BoldSnackbar 
+
+    The following **samples** contain the Snackbar component with different configurations, already using some implemented style overrides.
+
+    <br/>
+
+    <O2BoldSnackbarSample />
+
+    <br/>
+    <br/>
+    <br/>
+
+    ### Code
+    ````jsx
+    import { Box, Grid, Link, Typography, Button, SnackbarOrigin } from '@mui/material';
+    import { O2BoldSnackbar } from '@uilib/components';
+    import React from 'react';
+
+    interface State extends SnackbarOrigin {
+        open: boolean;
+        severaty: 'info' | 'success' | 'warning' | 'error';
+        sx?: any;
+    }
+
+    export default function O2BoldSnackbarSample() {
+        const [state, setState] = React.useState<State>({
+            open: false,
+            vertical: 'top',
+            horizontal: 'center',
+            severaty: 'info',
+            sx: {}
+        });
+        const { vertical, horizontal, open, severaty, sx } = state;
+
+    /**
+     * @function handleClick
+     * Open the snackbar with the specified state
+     */
+    const handleClick = (newState: State) => () => {
+        setState({ ...newState });
+    };
+
+    /**
+     * @function handleClose
+     * Close the snackbar
+     */
+    const handleClose = () => {
+        setState({ ...state, open: false });
+    };
+
+    return (
+        <>
+            <Grid container spacing={4}>
+                <Grid item xs={12}>
+                    <Typography variant="h5" fontWeight="bold" id="icons-badge">
+                        Bold contextual
+                    </Typography>
+                </Grid>
+                <Grid xs={12} item style={{ display: 'flex', gap: '16px', marginBottom: '16px' }}>
+                    <Button
+                        variant='outlined'
+                        onClick={handleClick({
+                            open: true,
+                            vertical: 'top',
+                            horizontal: 'right',
+                            severaty: 'info',
+                            sx: { display: 'flex', flexDirection: 'row', gap: '4px', alignItems: 'center' }
+                        })}>
+                        Information
+                    </Button>
+                    <Button
+                        variant='outlined'
+                        onClick={handleClick({
+                            open: true,
+                            vertical: 'top',
+                            horizontal: 'left',
+                            severaty: 'error',
+                            sx: { display: 'flex', flexDirection: 'row', gap: '4px', alignItems: 'center' }
+                        })}>
+                        Error
+                    </Button>
+                    <Button
+                        variant='outlined'
+                        onClick={handleClick({
+                            open: true,
+                            vertical: 'bottom',
+                            horizontal: 'left',
+                            severaty: 'warning',
+                            sx: { display: 'flex', flexDirection: 'row', gap: '4px', alignItems: 'center' }
+                        })}>
+                        Warning
+                    </Button>
+                    <Button
+                        variant='outlined'
+                        onClick={handleClick({
+                            open: true,
+                            vertical: 'bottom',
+                            horizontal: 'right',
+                            severaty: 'success',
+                            sx: { display: 'flex', flexDirection: 'row', gap: '4px', alignItems: 'center' }
+                        })}>
+                        Success
+                    </Button>
+                </Grid>
+                <Grid item xs={12}>
+                    <Typography variant="h5" fontWeight="bold" id="icons-badge">
+                        Bold non-contextual
+                    </Typography>
+                </Grid>
+                <Grid xs={12} item style={{ display: 'flex', gap: '16px' }}>
+                    <Button
+                        variant='outlined'
+                        onClick={handleClick({
+                            open: true,
+                            vertical: 'top',
+                            horizontal: 'right',
+                            severaty: 'info',
+                            sx: { display: 'flex', flexDirection: 'column', gap: '4px' }
+                        })}>
+                        Information
+                    </Button>
+                    <Button
+                        variant='outlined'
+                        onClick={handleClick({
+                            open: true,
+                            vertical: 'top',
+                            horizontal: 'left',
+                            severaty: 'error',
+                            sx: { display: 'flex', flexDirection: 'column', gap: '4px' }
+                        })}>
+                        Error
+                    </Button>
+                    <Button
+                        variant='outlined'
+                        onClick={handleClick({
+                            open: true,
+                            vertical: 'bottom',
+                            horizontal: 'left',
+                            severaty: 'warning',
+                            sx: { display: 'flex', flexDirection: 'column', gap: '4px' }
+                        })}>
+                        Warning
+                    </Button>
+                    <Button
+                        variant='outlined'
+                        onClick={handleClick({
+                            open: true,
+                            vertical: 'bottom',
+                            horizontal: 'right',
+                            severaty: 'success',
+                            sx: { display: 'flex', flexDirection: 'column', gap: '4px' }
+                        })}>
+                        Success
+                    </Button>
+                </Grid>
+            </Grid>
+            <O2BoldSnackbar
+                anchorOrigin={{ vertical, horizontal }}
+                open={open}
+                onClose={handleClose}
+                key={vertical + horizontal}
+                severity={severaty}>
+                <Box sx={sx}>
+                    <h3 style={{ margin: 0 }}> Notification title </h3>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    <Link
+                        href="#"
+                        variant="body2"
+                        sx={{ fontWeight: 'bold', margin: sx.flexDirection === "column" ? '16px 0px 0px 0px' : "0px 0px 0px 8px" }}>
+                        Sample link
+                    </Link>
+                </Box>
+            </O2BoldSnackbar>
+        </>
+    );
+}
+    ````
+
+</div>

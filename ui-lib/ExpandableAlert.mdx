@@ -1,0 +1,82 @@
+import { Meta, Unstyled } from '@storybook/blocks';
+import ExpandableAlertSamples from './ExpandableAlertSamples';
+
+<Meta title="@uilib-components/Components/Molecules/Notifications - ExpandableAlert/Overview" />
+
+# Expandable Alert
+
+The **Expandable Alert** is a specific instance of the MUI Alert component. 
+This instance already contains some abstractions over the default MUI Material in which the UI is already defined by status.
+
+<br/>
+
+<ExpandableAlertSamples />
+
+<br/>
+<br/>
+<br/>
+
+### Code 
+
+```jsx
+import { Typography, Stack, Grid, Box, Link } from '@mui/material';
+import React from 'react';
+import { ExpandableAlert } from '@uilib/components';
+
+/**
+ * @component ExpandableAlertSamples
+ */
+export default function ExpandableAlertSamples() {
+    const [expanded, setExpanded] = React.useState(false);
+
+    return (
+        <Stack spacing={4}>
+            <Typography variant="h5" fontWeight="bold">
+                ExpandableAlert
+            </Typography>
+            <Grid container spacing={4}>
+                <Grid item xs={6}>
+                    <ExpandableAlert severity="info" expanded={expanded} setExpanded={setExpanded} title="Expandable Alert title">
+                        <Box sx={{ mb: '16px' }}>Example of a contextual message.</Box>
+                        <Link href="#" variant="body2" sx={{ fontWeight: 'bold' }}>
+                            Sample link
+                        </Link>
+                    </ExpandableAlert>
+                </Grid>
+                <Grid item xs={6}>
+                    <ExpandableAlert severity="success" expanded={expanded} setExpanded={setExpanded} title="Expandable Alert title">
+                        <Box sx={{ mb: '16px' }}>Example of a contextual message.</Box>
+                        <Link href="#" variant="body2" sx={{ fontWeight: 'bold' }}>
+                            Sample link
+                        </Link>
+                    </ExpandableAlert>
+                </Grid>
+                <Grid item xs={6}>
+                    <ExpandableAlert severity="warning" expanded={expanded} setExpanded={setExpanded} title="Expandable Alert title">
+                        <Box sx={{ mb: '16px' }}>Example of a contextual message.</Box>
+                        <Link href="#" variant="body2" sx={{ fontWeight: 'bold' }}>
+                            Sample link
+                        </Link>
+                    </ExpandableAlert>
+                </Grid>
+                <Grid item xs={6}>
+                    <ExpandableAlert severity="error" expanded={expanded} setExpanded={setExpanded} title="Expandable Alert title">
+                        <Box sx={{ mb: '16px' }}>Example of a contextual message.</Box>
+                        <Link href="#" variant="body2" sx={{ fontWeight: 'bold' }}>
+                            Sample link
+                        </Link>
+                    </ExpandableAlert>
+                </Grid>
+                <Grid item xs={6}>
+                    <ExpandableAlert severity="discovery" expanded={expanded} setExpanded={setExpanded} title="Expandable Alert title">
+                        <Box sx={{ mb: '16px' }}>Example of a contextual message.</Box>
+                        <Link href="#" variant="body2" sx={{ fontWeight: 'bold' }}>
+                            Sample link
+                        </Link>
+                    </ExpandableAlert>
+                </Grid>
+            </Grid>
+        </Stack>
+    );
+}
+```

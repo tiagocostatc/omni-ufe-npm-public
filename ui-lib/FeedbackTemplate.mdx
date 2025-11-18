@@ -1,0 +1,53 @@
+import { Meta, Unstyled } from '@storybook/blocks';
+import FeedbackTemplateSamples from './FeedbackTemplateSamples';
+
+<Meta title="@uilib-components/Components/Molecules/FeedbackTemplate/Overview" />
+
+# Feeedback Template
+
+The **Feedback Template** is a generic representation of information to the user such as not found, warning, error and success.
+
+This component is commonly used on tables or using search filters.
+
+<br/>
+
+<FeedbackTemplateSamples />
+
+<br/>
+<br/>
+<br/>
+
+### Code
+
+```jsx
+import React from 'react';
+import { FeedbackTemplate } from '@uilib/components';
+import { Stack } from '@mui/material';
+
+/**
+ * @component FeedbackTemplateSamples
+ */
+export default function FeedTemplateSamples() {
+    return (
+        <Stack spacing={4}>
+            <FeedbackTemplate
+                hasBorder={true}
+                labels={{
+                    title: 'Feedback Template Title',
+                    subtitle: 'Feedback Template Subtitle'
+                }}
+                type='success'
+                version='v1'
+            />  
+            <FeedbackTemplate
+                hasBorder={true} 
+                type='notfound'
+                version='v1'
+                button={{
+                    label: 'Feedback Template Button',
+                    handleFunction: () => alert('Feeback Template Button clicked')
+                }}
+            />
+        </Stack>);
+}
+```

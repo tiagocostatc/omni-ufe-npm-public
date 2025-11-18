@@ -1,0 +1,49 @@
+import { Meta, Unstyled } from '@storybook/blocks';
+import SearchFieldSamples from './SearchFieldSamples';
+
+<Meta title="@uilib-components/Components/Molecules/SearchField/Overview" />
+
+# Search Field
+
+The **Search Field** is search component already adapted to work on both small and larger screen devices.
+It is a direct alternative to the InputField/TextField from MUI, giving it a distinct look and interactions intended to work on smaller screen.
+
+<br/>
+
+<SearchFieldSamples />
+
+<br/>
+<br/>
+<br/>
+
+### Code 
+
+```jsx
+import React from 'react';
+import { SearchField } from '@uilib/components';
+import { Stack } from '@mui/material';
+
+/**
+ * @component SearchFieldSamples
+ */
+export default function SearchFieldSamples() {
+    const [search, setSearch] = React.useState('');
+
+    return <Stack spacing={4}>
+        <SearchField
+            onSearchClick={() => alert('Search clicked')}
+            variant='full'
+            type='input'
+            onChange={(e) => setSearch(e.target.value)}
+            value={search}
+        />
+        <SearchField
+            onSearchClick={() => alert('Search clicked')}
+            variant='regular'
+            type='input'
+            onChange={(e) => setSearch(e.target.value)}
+            value={search}
+        />
+    </Stack>;
+}
+```

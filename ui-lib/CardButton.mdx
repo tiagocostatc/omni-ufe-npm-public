@@ -1,0 +1,95 @@
+import { Meta } from '@storybook/blocks';
+import CardButtonSamples from './CardButtonSamples';
+
+<Meta title="@uilib-components/Components/Atoms/Card Button/Overview" />
+
+# Card Button
+
+The **Card Button** component is a component mostly used in the Menu of the Unified Frontend. 
+
+It should be used whenever we want to give the user the ability to select a given option, but with detailed information with an informational icon and a title.
+This button also supports the usage of the favorite actions (which in this case only reference the UI). 
+
+<br/>
+
+<CardButtonSamples/>
+
+<br/>
+<br/>
+<br/>
+
+### Code 
+
+```jsx
+import { Typography, Stack, Grid } from '@mui/material';
+import React, { useState } from 'react';
+import { CardButton } from '@uilib/components';
+import {
+    MenuListApplicationManual,
+    MenuListUiLibrary,
+    MenuListUserAccessManagement,
+    MenuTileApplicationManual,
+    MenuTileUiLibrary,
+    MenuTileUserAccessManagement,
+} from '@uilib/icons';
+
+/**
+ * @component CardButtonSamples
+ */
+export default function CardButtonSamples() {
+    const [favourite, setFavourite] = useState(false);
+    return (
+        <Stack spacing={4}>
+            <Typography
+                variant='h5'
+                fontWeight='bold'>
+                CardButton Tile
+            </Typography>
+            <Grid container spacing={1}>
+                <Grid item xs={3}>
+                    <CardButton variant='tile' Icon={MenuTileApplicationManual} title='Backoffice' />
+                </Grid>
+                <Grid item xs={3}>
+                    <CardButton variant='tile' Icon={MenuTileUiLibrary} title='UI Components Library' />
+                </Grid>
+                <Grid item xs={3}>
+                    <CardButton
+                        showFavouriteButton
+                        favourite={favourite}
+                        handleFavouriteClick={() => setFavourite(!favourite)}
+                        variant='tile'
+                        Icon={MenuTileUserAccessManagement}
+                        title='User Access Management'
+                    />
+                </Grid>
+            </Grid>
+            <Typography
+                style={{ marginTop: '32px' }}
+                variant='h5'
+                fontWeight='bold'>
+                CardButton List (Single + Group)
+            </Typography>
+            <Grid container>
+                <Grid item xs={12} sx={{ marginBottom: '24px' }}>
+                    <CardButton variant='list' Icon={MenuListApplicationManual} title='Backoffice' />
+                </Grid>
+               <Grid container xs={12} gap={6}>
+                    <CardButton variant='list' Icon={MenuListApplicationManual} title='Backoffice' />
+                    <CardButton variant='list' Icon={MenuListUiLibrary} title='UI Components Library' />
+                    <CardButton
+                        count={10}
+                        showFavouriteButton
+                        favourite={favourite}
+                        handleFavouriteClick={() => setFavourite(!favourite)}
+                        variant='list'
+                        Icon={MenuListUserAccessManagement}
+                        title='User Access Management'
+                    />
+                </Grid>
+                <Grid item xs={12}></Grid>
+            </Grid>
+        </Stack>
+    );
+}
+```
+

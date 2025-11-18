@@ -1,0 +1,89 @@
+import { Meta } from '@storybook/blocks';
+import { Box, Typography, Grid } from '@mui/material';
+import FilterSamples from './FilterSamples';
+
+<Meta title="@uilib-components/Components/Organisms/Filter/Overview" />
+
+# Filter
+
+The **Filter** component is the composition between 4 components:
+
+<Box sx={{ backgroundColor: 'primary.light', padding: '16px' }}>
+    <Typography variant="h5">Filter</Typography>
+    <Typography variant="body1" paragraph>
+        The filter component is a wrapper that provides context for 3 sub-components. You can use them all or choose the ones you need.
+    </Typography>
+    <Typography variant="h5">FilterButton</Typography>
+    <Typography variant="body1" paragraph>
+        The filter button is the button component that displays the number of active filters, opens the drawer or the modal with the filters, has has a menu
+        button to clear all filters or to toogle the visibility of the chips that show the current filters
+    </Typography>
+    <Typography variant="h5">FilterChips</Typography>
+    <Typography variant="body1" paragraph>
+        The filter chips is the component that displays the active filters in chips. It's possible to remove the filter by clicking on the close icon of the
+        chip.
+    </Typography>
+    <Typography variant="h5">FilterContent</Typography>
+    <Typography variant="body1" paragraph>
+        The filter content is the component that can be a drawer or a modal and should display the configurations of the filters to be applied. Inside the
+        component you have an apply filters and clear all filters buttons. chip.
+    </Typography>
+</Box>
+
+<br/>
+<br/>
+
+<FilterSamples/>
+
+<br/>
+<br/>
+<br/>
+
+## Code
+
+```js
+import { Typography, Stack, Grid, Box, TextField } from '@mui/material';
+import React, { useState } from 'react';
+import { Filter, FilterButton, FilterChips, FilterContent } from '@uilib/components';
+
+/**
+ * @component FilterSamples
+ */
+export default function FilterSamples() {
+    
+    const [isContentOpen, setIsContentOpen] = useState(false);
+    const [keyword, setKeyword] = useState<string>('');
+    const [isShowingFilters, setIsShowingFilters] = useState(true);
+
+    return (
+        <>
+            <Stack spacing={4}>
+                <Grid container spacing={1}>
+                    <Grid item xs={12}>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'start' }}>
+                            <Filter
+                                applyFilterSearch={() => { /** Here it should be the code to handle the submit of a filter search like a http request */}}
+                                isContentOpen={isContentOpen}
+                                setIsContentOpen={setIsContentOpen}
+                                isShowingFilters={isShowingFilters}
+                            >
+                                <FilterButton setIsShowingFilters={setIsShowingFilters} />
+                                <FilterChips/>
+                                <FilterContent
+                                    fields={[{ type: 'keyword', value: keyword, active: true }]}
+                                >
+                                    <>
+                                        Filters here - If you click "Apply filters", dummy filters will be set
+                                        <Typography variant="body2">Keyword:</Typography>
+                                        <TextField value={keyword} onChange={e => setKeyword(e.target.value)} />
+                                    </>
+                                </FilterContent>
+                            </Filter>
+                        </Box>
+                    </Grid>
+                </Grid>
+            </Stack>
+        </>
+    );
+}
+```

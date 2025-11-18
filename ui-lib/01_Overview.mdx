@@ -1,0 +1,32 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="@uilib-components/Overview" />
+
+# @uilib/components
+
+**UILib Components** consists in representations of the O2 Design System components created specifically by the product team that supports this library. To use this library it is required 
+to also use the ```@uilib/core``` package:
+
+```bash
+npm install @uilib/core
+```
+
+```bash
+npm install @uilib/components
+```
+<br/>
+
+Now use the ```@uilib/core``` Theme Provider to wrap the application and you can start using our @uilib/components library:
+
+```jsx
+import { ThemeProvider } from '@uilib/core';
+import { FeedbackTemplate } from '@uilib/components';
+
+function App() {
+  return (
+    <ThemeProvider>
+      <FeedbackTemplate type='notfound' version='v1' button={{label: 'Clear Search', handleFunction: () => clearSearch()}} labels={{title: 'No Results', subtitle: 'No results were found with the given search criteria.'}} />
+    </ThemeProvider>
+  );
+}
+```
